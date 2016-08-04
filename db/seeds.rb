@@ -1,27 +1,33 @@
+User.destroy_all
+Quest.destroy_all
+Clan.destroy_all
+Activity.destroy_all
 
 names = ["Alaric", "William", "Charlemagne", "Joan", "Halfdan"]
 
 names.each do |name|
-  user = User.new(
+  puts name
+  x = User.new(
     email: "#{name}@#{name}.com".downcase,
+    char_name: name,
     password: "password",
     experience: rand(1..1000),
     speed: rand(1..10),
     endurance: rand(1..10),
     mental: rand(1..10),
-    level: rand(1..5)
+    level: rand(1..5),
+    lord: false
   )
-  user.save
+  x.save
 end
 
 users = User.all
-
 date = Date.new(2016, 9, 23)
-time = Time.new(2016, 8, 3, 8, 30, 0)
+time = Time.new(2016, 8, 3, 8, 0, 0)
 
 users.each do |user|
-  (1..3).times do
-    quest = Quest.new(
+  rand(1..3).times do
+    quest = Quest.create(
       name: ["New Quest", "Long Run", "Short Run", "Palace Raid", "Genie"].sample,
       status: ["active", "complete", "cancelled", "awaiting response"].sample,
       quest_type: ["self", "clan", "assigned"].sample,
@@ -29,23 +35,41 @@ users.each do |user|
       assigner_id: user.id,
       assignee_id: users.sample.id
     )
-    quest.save
 
-    (1..3).times do
-      start_time = time.days_since(rand(1..30))
-      end_time = start_time + rand(15..100).minutes,
+    2.times do
+      start_time = time + rand(1..30).days
+      end_time = start_time + rand(15..45).minutes
+      total_time = (end_time - start_time) / 60
       distance = rand(1..10)
-      activity = Activity.new(
+      avg_pace = total_time / distance
+      activity = Activity.create(
         quest_id: quest.id,
         distance: distance,
         start_time: start_time,
         end_time: end_time,
-        avg_pace: (end_time - start_time) / distance,
+        avg_pace: avg_pace,
         calories: rand(100..1000),
         status: ["complete", "incomplete"].sample
       )
-      activity.save
     end
   end
 end
+
+clan_1 = Clan.new(
+  name: "Wolverines"
+)
+clan_1.save
+
+clan_2 = Clan.new(
+  name: "Fairies"
+)
+clan_2.save
+
+clans = Clan.all
+
+users.each do |user|
+  user.clan_id = clans.sample.id
+end
+
+puts "Donezo!!!"
 
