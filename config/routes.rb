@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   patch '/quests/:id' => 'quests#update'
   delete '/quests/:id' => 'quests#destroy'
   # activity routes
+  get '/activities' => 'activities#index'
+  get '/activities/new' => 'activities#new'
+  post '/activities' => 'activities#create'
+  get '/activities/:id' => 'activities#show'
+  get '/activities/:id/edit' => 'activities#edit'
+  patch '/activities/:id' => 'activities#update'
+  delete '/activities/:id' => 'activities#destroy'
 
   # Authentication routes
   get '/signup' => 'users#new'
