@@ -1,2 +1,0 @@
-class ClanQuest < ApplicationRecord
-end

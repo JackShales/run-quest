@@ -1,2 +1,0 @@
-class Clan < ApplicationRecord
-end

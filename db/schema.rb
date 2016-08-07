@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804023031) do
+ActiveRecord::Schema.define(version: 20160807184735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,19 +25,6 @@ ActiveRecord::Schema.define(version: 20160804023031) do
     t.datetime "updated_at",                         null: false
     t.time     "end_time"
     t.decimal  "avg_pace",   precision: 4, scale: 2
-  end
-
-  create_table "clan_quests", force: :cascade do |t|
-    t.integer  "clan_id"
-    t.integer  "quest_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "clans", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "quests", force: :cascade do |t|
@@ -66,8 +53,6 @@ ActiveRecord::Schema.define(version: 20160804023031) do
     t.integer  "endurance"
     t.integer  "mental"
     t.integer  "level"
-    t.integer  "clan_id"
-    t.boolean  "lord"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "char_name"

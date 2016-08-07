@@ -1,6 +1,5 @@
 User.destroy_all
 Quest.destroy_all
-Clan.destroy_all
 Activity.destroy_all
 
 names = ["Alaric", "William", "Charlemagne", "Joan", "Halfdan"]
@@ -30,10 +29,15 @@ users.each do |user|
     quest = Quest.create(
       name: ["New Quest", "Long Run", "Short Run", "Palace Raid", "Genie"].sample,
       status: ["active", "complete", "cancelled", "awaiting response"].sample,
-      quest_type: ["self", "clan", "assigned"].sample,
+      quest_type: ["self", "retrieved", "assigned"].sample,
       deadline: date.days_ago(rand(1..30)),
       assigner_id: user.id,
       assignee_id: users.sample.id
+    )
+
+    user_quest = UserQuest.create(
+      quest_id: quest.id,
+      user_id: user.id
     )
 
     2.times do
@@ -53,22 +57,6 @@ users.each do |user|
       )
     end
   end
-end
-
-clan_1 = Clan.new(
-  name: "Wolverines"
-)
-clan_1.save
-
-clan_2 = Clan.new(
-  name: "Fairies"
-)
-clan_2.save
-
-clans = Clan.all
-
-users.each do |user|
-  user.clan_id = clans.sample.id
 end
 
 puts "Donezo!!!"
