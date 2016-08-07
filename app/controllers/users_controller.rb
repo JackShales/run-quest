@@ -1,14 +1,27 @@
 class UsersController < ApplicationController
+  def show
+    if current_user
+      render 'show.html.erb'
+    else
+      redirect_to '/login'
+    end
+  end
+
   def new
     render 'new.html.erb'
   end
 
   def create
     user = User.new(
-      name: params[:name],
+      char_name: params[:character_name],
       email: params[:email],
       password: params[:password],
-      password_confirmation: params[:password_confirmation]
+      password_confirmation: params[:password_confirmation],
+      experience: 0,
+      speed: 0,
+      endurance: 0,
+      mental: 0,
+      level: 1
     )
     if user.save
       session[:user_id] = user.id
