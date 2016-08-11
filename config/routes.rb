@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # user dashboard
   get '/' => 'users#show'
+  get '/authorize' => 'users#authorize'
   # quest routes
   get '/quests' => 'quests#index'
   get '/quests/new' => 'quests#new'
