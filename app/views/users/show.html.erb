@@ -1,3 +1,9 @@
 <h1><%= current_user.char_name %></h1>
-
+<p>Experience: <%= current_user.experience %></p>
+<p>Speed: <%= current_user.speed %></p>
+<p>Endurance: <%= current_user.endurance %></p>
+<p>Mental:  <%= current_user.mental %></p>
+<p>Level:  <%= current_user.level %></p>
+<% unless current_user.access_token %>
 <a href="<%= @auth %>">Connect to RunKeeper</a>
+<% end %>

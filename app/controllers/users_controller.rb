@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       }
     ).body
     current_user.update(access_token: @post["access_token"], token_type: @post["token_type"])
-    render 'authorize.html.erb'
+    redirect_to '/'
     # @coffee = Unirest.post(
     #   "#{ENV['API_BASE_URL']}/coffee.json", 
     #   headers: {"Accept" => "application/json"}, 
