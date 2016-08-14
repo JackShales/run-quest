@@ -1,9 +1,30 @@
-<h1><%= current_user.char_name %></h1>
-<p>Experience: <%= current_user.experience %></p>
-<p>Speed: <%= current_user.speed %></p>
-<p>Endurance: <%= current_user.endurance %></p>
-<p>Mental:  <%= current_user.mental %></p>
-<p>Level:  <%= current_user.level %></p>
-<% unless current_user.access_token %>
-<a href="<%= @auth %>">Connect to RunKeeper</a>
+<h1><%= @user.char_name %></h1>
+<p>Experience: <%= @user.experience %></p>
+<p>Speed: <%= @user.speed %></p>
+<p>Endurance: <%= @user.endurance %></p>
+<p>Mental:  <%= @user.mental %></p>
+<p>Level:  <%= @user.level %></p>
+
+<h3>Submit quest to <%= @user.char_name %></h3>
+
+<%= form_tag '/quests', method: :post do %>
+  <div>
+    <%= label_tag :quest_type %>
+    <%= select_tag :quest_type, options_for_select(["Endurance", "Mental", "Speed"], "")%>
+  </div>
+  <div>
+    <%= label_tag :name %>
+    <%= text_field_tag :name %>
+  </div>
+  <div>
+    <%= label_tag :goal %>
+    <%= text_field_tag :goal %>
+  </div>
+  <div>
+    <%= label_tag :deadline %>
+    <%= text_field_tag :deadline %>
+  </div>
+  <div>
+    <%= submit_tag "Submit quest" %>
+  </div>
 <% end %>

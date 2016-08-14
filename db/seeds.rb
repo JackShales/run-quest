@@ -14,8 +14,7 @@ names.each do |name|
     speed: rand(1..10),
     endurance: rand(1..10),
     mental: rand(1..10),
-    level: rand(1..5),
-    lord: false
+    level: rand(1..5)
   )
   x.save
 end
@@ -48,14 +47,14 @@ users.each do |user|
       avg_pace = total_time / distance
       activity = Activity.create(
         quest_id: quest.id,
+        user_id: user.id,
         distance: distance,
         start_time: start_time,
-        duration: rand(500..5000,
-        calories: rand(100..1000),
+        duration: rand(500..5000),
+        calories: rand(100..1000)
       )
     end
   end
 end
 
 puts "Donezo!!!"
-

@@ -1,11 +1,20 @@
 class UsersController < ApplicationController
-  def show
+  def home
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
-      render 'show.html.erb'
+      render 'home.html.erb'
     else
       redirect_to '/login'
     end
+  end
+
+  def index
+    @users = User.all
+  end
+
+  def show 
+    @user = User.find_by(id: params[:id])
+    render 'show.html.erb'
   end
 
   def new
@@ -48,8 +57,28 @@ class UsersController < ApplicationController
       }
     ).body
     current_user.update(access_token: @post["access_token"], token_type: @post["token_type"])
+    hg_activities_raw = Unirest.get("http://api.runkeeper.com/fitnessActivities/?token_type=#{current_user.token_type}&access_token=#{current_user.access_token}").body
+    hg_activities = hg_activities_raw["items"]
 
-    
-    redirect_to '/'
+    quest = Quest.create(
+      name: "Runkeeper Upload",
+      status: "complete",
+      quest_type: "self",
+      assigner_id: current_user.id,
+      assignee_id: current_user.id
+    )
+
+    hg_activities.each do |activity|
+      Activity.create(
+        start_time: activity["start_time"],
+        distance: activity["total_distance"],
+        duration: activity["duration"],
+        calories: activity["total_calories"],
+        quest_id: quest.id,
+        user_id: current_user.id
+      )
+    end
+    flash[:success] = 'Successfully linked RunKeeper Account!'
+    redirect_to '/activities'
   end
 end

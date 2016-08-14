@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814193551) do
+ActiveRecord::Schema.define(version: 20160814203758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160814193551) do
     t.decimal  "duration",   precision: 8, scale: 3
     t.decimal  "distance",   precision: 8, scale: 2
     t.datetime "start_time"
+    t.integer  "user_id"
   end
 
   create_table "quests", force: :cascade do |t|

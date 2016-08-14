@@ -1,8 +1,7 @@
 <h1>Activities</h1>
-<h3>Total: <%= @hg_total %> </h3>
-<% @hg_activities.each do |activity| %>
-<h5>Date: <%= activity["start_time"] %> </h5>
-<p>Duration: <%= activity["duration"] %></p>
-<p>Calories: <%= activity["total_calories"] %></p>
-<p>Distance: <%= activity["total_distance"] %></p>
+<% @activities.each do |activity| %>
+<h5>Date: <%= activity.start_time %> </h5>
+<p>Duration: <%= activity.duration %></p>
+<p>Calories: <%= activity.calories %></p>
+<p>Distance: <%= activity.distance %></p>
 <% end %>

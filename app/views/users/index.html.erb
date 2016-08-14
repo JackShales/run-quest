@@ -1,0 +1,4 @@
+<h1>All friends</h1>
+<% @users.each do |user| %>
+  <p><a href="/users/<%= user.id %>"><%= user.char_name %></a></p>
+<% end %>
