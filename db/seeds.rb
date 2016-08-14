@@ -50,10 +50,8 @@ users.each do |user|
         quest_id: quest.id,
         distance: distance,
         start_time: start_time,
-        end_time: end_time,
-        avg_pace: avg_pace,
+        duration: rand(500..5000,
         calories: rand(100..1000),
-        status: ["complete", "incomplete"].sample
       )
     end
   end

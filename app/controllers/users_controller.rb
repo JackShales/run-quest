@@ -48,6 +48,8 @@ class UsersController < ApplicationController
       }
     ).body
     current_user.update(access_token: @post["access_token"], token_type: @post["token_type"])
+
+    
     redirect_to '/'
   end
 end

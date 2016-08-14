@@ -10,21 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811004718) do
+ActiveRecord::Schema.define(version: 20160814193551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "quest_id"
-    t.decimal  "distance",   precision: 5, scale: 2
-    t.time     "start_time"
     t.integer  "calories"
-    t.string   "status"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.time     "end_time"
-    t.decimal  "avg_pace",   precision: 4, scale: 2
+    t.decimal  "duration",   precision: 8, scale: 3
+    t.decimal  "distance",   precision: 8, scale: 2
+    t.datetime "start_time"
   end
 
   create_table "quests", force: :cascade do |t|
