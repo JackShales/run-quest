@@ -19,9 +19,9 @@ class UsersController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation],
       experience: 0,
-      speed: 0,
-      endurance: 0,
-      mental: 0,
+      speed: 1,
+      endurance: 1,
+      mental: 1,
       level: 1
     )
     if user.save
@@ -49,15 +49,5 @@ class UsersController < ApplicationController
     ).body
     current_user.update(access_token: @post["access_token"], token_type: @post["token_type"])
     redirect_to '/'
-    # @coffee = Unirest.post(
-    #   "#{ENV['API_BASE_URL']}/coffee.json", 
-    #   headers: {"Accept" => "application/json"}, 
-    #   parameters: { 
-    #     name: params[:name], 
-    #     description: params[:description], 
-    #     price: params[:price], 
-    #     weight: params[:weight]
-    #   }
-    # ).body
   end
 end
