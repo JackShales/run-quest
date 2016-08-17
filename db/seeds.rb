@@ -1,6 +1,8 @@
 User.destroy_all
 Quest.destroy_all
 Activity.destroy_all
+Friendship.destroy_all
+UserQuest.destroy_all
 
 names = ["Alaric", "William", "Charlemagne", "Joan", "Halfdan"]
 
@@ -55,6 +57,22 @@ users.each do |user|
       )
     end
   end
+  
+  # users.each do |friend|
+  #   user_ary = users - [friend]
+  #   user_1 = friend.id
+  #   user_2 = user_ary.sample.id
+  #   if user_1 > user_2
+  #     user_1 = user_2
+  #     user_2 = friend.id
+  #   end
+  #   companion = Friendship.new(
+  #     user_id: user_1,
+  #     friend_id: user_2,
+  #     status_code: rand(0..3),
+  #     action_user_id: user_1
+  #   )
+  #   companion.save
+  # end
 end
-
 puts "Donezo!!!"

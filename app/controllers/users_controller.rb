@@ -2,6 +2,35 @@ class UsersController < ApplicationController
   def home
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
+
+      accepted_friendships = current_user.friendships.where(status_code: 1)
+      @accepted_friends = []
+      accepted_friendships.each do |friendship|
+        if friendship.friend_id == current_user.id
+          function_id = friendship.user_id
+        else
+          function_id = friendship.friend_id
+        end
+        friend = User.find_by(id: function_id)
+        @accepted_friends << friend.char_name
+      end
+
+      pending_friendships_sent = current_user.friendships.where(status_code: 0)
+      @pending_friends_sent = []
+      @pending_friends_received = []
+      pending_friendships_sent.each do |friendship|
+        if friendship.friend_id == current_user.id
+          function_id = friendship.user_id
+        else
+          function_id = friendship.friend_id
+        end
+        friend = User.find_by(id: function_id)
+        if current_user.id == friendship.user_id
+          @pending_friends_sent << friend.char_name 
+        elsif current_user.id == friendship.friend_id
+          @pending_friends_received << friend.char_name
+        end
+      end
       render 'home.html.erb'
     else
       redirect_to '/login'

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/activities/:id/edit' => 'activities#edit'
   patch '/activities/:id' => 'activities#update'
   delete '/activities/:id' => 'activities#destroy'
+  # friend routes
+  post '/friends' => 'friends#create'
 
   # Authentication routes
   get '/signup' => 'users#new'

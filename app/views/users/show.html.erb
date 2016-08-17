@@ -13,16 +13,16 @@
     <%= select_tag :quest_type, options_for_select(["Endurance", "Mental", "Speed"], "")%>
   </div>
   <div>
-    <%= label_tag :name %>
+    <%= label_tag :quest_name %>
     <%= text_field_tag :name %>
   </div>
   <div>
-    <%= label_tag :goal %>
+    <%= label_tag :quest_goal %>
     <%= text_field_tag :goal %>
   </div>
   <div>
     <%= label_tag :deadline %>
-    <%= text_field_tag :deadline %>
+    <%= select_date Date.today, prefix: :deadline %>
   </div>
   <div>
     <%= submit_tag "Submit quest" %>
