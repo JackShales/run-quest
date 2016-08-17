@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   delete '/activities/:id' => 'activities#destroy'
   # friend routes
   post '/friends' => 'friends#create'
+  patch '/friends/:id' => 'friends#update'
 
   # Authentication routes
   get '/signup' => 'users#new'

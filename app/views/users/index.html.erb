@@ -1,8 +1,10 @@
-<h1>All friends</h1>
+<h1>All users</h1>
 <% @users.each do |user| %>
-  <h5><%= user.char_name %></h5>
-  <%= form_tag '/friends', method: :post do %>
-    <%= hidden_field_tag :friend_id, user.id %>
-    <%= submit_tag "Add friend" %>
-  <% end %> 
+  <% if user.id != current_user.id %>
+    <h5><%= user.char_name %></h5>
+    <%= form_tag '/friends', method: :post do %>
+      <%= hidden_field_tag :friend_id, user.id %>
+      <%= submit_tag "Add friend" %>
+    <% end %> 
+  <% end %>
 <% end %>
