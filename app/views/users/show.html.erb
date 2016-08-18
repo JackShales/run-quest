@@ -25,6 +25,7 @@
     <%= select_date Date.today, prefix: :deadline %>
   </div>
   <div>
+    <%= hidden_field_tag :assignee_id, @user.id %>
     <%= submit_tag "Submit quest" %>
   </div>
 <% end %>

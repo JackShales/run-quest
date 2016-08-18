@@ -97,8 +97,8 @@ class UsersController < ApplicationController
 
     quest = Quest.create(
       name: "Runkeeper Upload",
-      status: "complete",
-      quest_type: "self",
+      status_code: 4,
+      quest_type: "Runkeeper",
       assigner_id: current_user.id,
       assignee_id: current_user.id
     )

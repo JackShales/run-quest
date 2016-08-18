@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/authorize' => 'users#authorize'
   # quest routes
   get '/quests' => 'quests#index'
-  get '/quests/new' => 'quests#new'
+  # get '/quests/new' => 'quests#new'
   post '/quests' => 'quests#create'
   get '/quests/:id' => 'quests#show'
   get '/quests/:id/edit' => 'quests#edit'
