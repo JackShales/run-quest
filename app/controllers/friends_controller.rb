@@ -1,4 +1,9 @@
 class FriendsController < ApplicationController
+  def index
+    @friends = current_user.friends + current_user.inverse_friends
+    render 'index.html.erb'
+  end
+
   def create
     id_1 = current_user.id
     id_2 = params[:friend_id].to_i

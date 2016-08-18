@@ -5,7 +5,7 @@
 <p>Mental:  <%= current_user.mental %></p>
 <p>Level:  <%= current_user.level %></p>
 
-<h3>Friends</h3>
+<h3><a href="/friends">Friends</a></h3>
 <% @accepted_friends.each do |friend| %>
   <p><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></p>
 <% end %>

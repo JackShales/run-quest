@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   patch '/activities/:id' => 'activities#update'
   delete '/activities/:id' => 'activities#destroy'
   # friend routes
+  get '/friends' => 'friends#index'
   post '/friends' => 'friends#create'
   patch '/friends/:id' => 'friends#update'
 
