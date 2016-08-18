@@ -29,8 +29,8 @@ users.each do |user|
   rand(1..3).times do
     quest = Quest.create(
       name: ["New Quest", "Long Run", "Short Run", "Palace Raid", "Genie"].sample,
-      status: ["active", "complete", "cancelled", "awaiting response"].sample,
-      quest_type: ["self", "retrieved", "assigned"].sample,
+      status_code: rand(0..3),
+      quest_type: ["endurance", "speed", "mental"].sample,
       deadline: date.days_ago(rand(1..30)),
       assigner_id: user.id,
       assignee_id: users.sample.id
