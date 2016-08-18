@@ -4,4 +4,14 @@ class Quest < ApplicationRecord
   belongs_to :assignee, class_name: :User, foreign_key: :assignee_id
   has_many :user_quests
   has_many :users, through: :user_quests
+
+  def assignee
+    assignee = User.find_by(id: assignee_id)
+    assignee
+  end
+
+  def assigner
+    assigner = User.find_by(id: assigner_id)
+    assigner
+  end
 end
