@@ -17,18 +17,25 @@ class UsersController < ApplicationController
         @accepted_friends << friend
       end
 
-      pending_friendships_sent = current_user.friendships.where(status_code: 0)
+      pending_friendships_1 = current_user.friendships.where(status_code: 0)
+      pending_friendships_2 = current_user.inverse_friendships.where(status_code: 0)
+      pending_friendships_all = pending_friendships_1 + pending_friendships_2
       @pending_friends_sent = []
-      pending_friendships_sent.each do |friendship|
-        friend = User.find_by(id: friendship.friend_id)
-        @pending_friends_sent << friend
-      end
-
-      pending_friendships_received = current_user.inverse_friendships.where(status_code: 0)
       @pending_friends_received = []
-      pending_friendships_received.each do |friendship|
-        friend = User.find_by(id: friendship.user_id)
-        @pending_friends_received << friend
+      pending_friendships_all.each do |friendship|
+        if friendship.action_user_id == current_user.id && friendship.user_id == current_user.id
+          friend = User.find_by(id: friendship.friend_id)
+          @pending_friends_sent << friend
+        elsif friendship.action_user_id == current_user.id && friendship.friend_id == current_user.id
+          friend = User.find_by(id: friendship.user_id)
+          @pending_friends_sent << friend
+        elsif friendship.action_user_id != current_user.id && friendship.user_id == current_user.id
+          friend = User.find_by(id: friendship.friend_id)
+          @pending_friends_received << friend
+        else
+          friend = User.find_by(id: friendship.user_id)
+          @pending_friends_received << friend
+        end
       end
       render 'home.html.erb'
     else
