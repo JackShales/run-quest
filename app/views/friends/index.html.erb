@@ -1,5 +1,23 @@
 <h1>Friends</h1>
 
-<% @friends.each do |friend| %>
+<% @accepted_friends.each do |friend| %>
   <p><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></p>
 <% end %>
+
+<h3>Pending Friend Requests Sent</h3>
+<% @pending_friends_sent.each do |friend| %>
+  <p><%= friend.char_name %></p>
+<% end %>
+
+<h3>Pending Friend Requests Received</h3>
+<% @pending_friends_received.each do |friend| %>
+  <p><%= friend.char_name %></p>
+  <%= form_tag "/friends/#{friend.id}", method: :patch do %>
+    <%= radio_button_tag :choice, 1 %>
+    <%= label_tag :choice_accept, "Accept" %>
+    <%= radio_button_tag :choice, 2 %>
+    <%= label_tag :choice_decline, "Decline" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
+<% end %>
+
