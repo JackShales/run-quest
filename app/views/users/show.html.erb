@@ -10,7 +10,7 @@
 <%= form_tag '/quests', method: :post do %>
   <div>
     <%= label_tag :quest_type %>
-    <%= select_tag :quest_type, options_for_select(["Endurance", "Mental", "Speed"], "")%>
+    <%= select_tag :quest_type, options_for_select(["endurance", "mental", "speed"], "")%>
   </div>
   <div>
     <%= label_tag :quest_name %>

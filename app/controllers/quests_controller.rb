@@ -1,5 +1,18 @@
 class QuestsController < ApplicationController
   def index
+    my_quests = Quest.where(assignee_id: current_user.id)
+    my_assigned_quests = Quest.where(assigner_id: current_user.id)
+    @quest_inbox = my_quests.where(status_code: 0)
+    @active_inbox = my_quests.where(status_code: 1)
+    @declined_inbox = my_quests.where(status_code: 2)
+    @cancelled_inbox = my_quests.where(status_code: 3)
+    @complete_inbox = my_quests.where(status_code: 4)
+    @quest_outbox = my_assigned_quests.where(status_code: 0)
+    @active_outbox = my_assigned_quests.where(status_code: 1)
+    @declined_outbox = my_assigned_quests.where(status_code: 2)
+    @cancelled_outbox = my_assigned_quests.where(status_code: 3)
+    @complete_outbox = my_assigned_quests.where(status_code: 4)
+    render 'index.html.erb'
   end
 
   def create
