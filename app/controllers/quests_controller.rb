@@ -21,6 +21,14 @@ class QuestsController < ApplicationController
 
   def show
     @quest = Quest.find_by(id: params[:id])
+    @assigner = User.find_by(id: @quest.assigner_id)
+    @assignee = User.find_by(id: @quest.assignee_id)
     render 'show.html.erb'
+  end
+
+  def update
+    quest = Quest.find_by(id: params[:id])
+    quest.update(status_code: params[:choice].to_i || quest.status_code)
+    redirect_to "/quests/#{quest.id}"
   end
 end

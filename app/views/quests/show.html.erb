@@ -1,4 +1,23 @@
 <h1><%= @quest.name %></h1>
 <h3><%= @quest.quest_type %> Quest</h3>
+<h5>Assigned by <%= @assigner.char_name %> to <%= "#{@assignee.char_name}, #{@quest.status}" %></h5>
 <p><%= @quest.notes %></p>
 <p><%= @quest.deadline %></p>
+
+<% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
+<%= form_tag "/quests/#{@quest.id}", method: :patch do %>
+    <%= check_box_tag :choice, 3 %>
+    <%= label_tag :choice_cancel, "Cancel Quest" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
+<% end %>
+
+<% if @quest.status_code == 1 && current_user.id == @quest.assigner_id %>
+  <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
+    <%= radio_button_tag :choice, 4 %>
+    <%= label_tag :choice_complete, "Quest Completed" %>
+    <%= radio_button_tag :choice, 3 %>
+    <%= label_tag :choice_cancel, "Cancel Quest" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
+<% end %>

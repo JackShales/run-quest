@@ -5,14 +5,63 @@
 <p>Mental:  <%= current_user.mental %></p>
 <p>Level:  <%= current_user.level %></p>
 
-<h3>My Quests</h3>
-<% @my_quests.each do |quest| %>
-<p><%= quest.name %> assigned by <%= quest.assigner.char_name %></p>
+<h2>Inbox</h2>
+
+<% @quest_inbox.each do |quest| %>
+<p><a href="/quests/#{quest.id}" ><%= quest.name %></a> assigned by <%= quest.assigner.char_name %></p>
+<%= form_tag "/quests/#{quest.id}", method: :patch do %>
+    <%= radio_button_tag :choice, 1 %>
+    <%= label_tag :choice_accept, "Accept" %>
+    <%= radio_button_tag :choice, 2 %>
+    <%= label_tag :choice_decline, "Decline" %>
+    <%= submit_tag "Submit" %>
+  <% end %>
 <% end %>
 
-<h3>Assigned Quests</h3>
-<% @assigned_quests.each do |quest| %>
-<p><%= quest.name %> assigned to <%= quest.assignee.char_name %></p>
+<h3>Active Quests</h3>
+<% @active_inbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a></a> assigned by <%= quest.assigner.char_name %></p>
+<% end %>
+
+<h3>Declined Quests</h3>
+<% @declined_inbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a></a> assigned by <%= quest.assigner.char_name %></p>
+<% end %>
+
+<h3>Cancelled Quests</h3>
+<% @cancelled_inbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a></a> assigned by <%= quest.assigner.char_name %></p>
+<% end %>
+
+<h3>Completed Quests</h3>
+<% @complete_inbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned by <%= quest.assigner.char_name %></p>
+<% end %>
+
+<h2>Outbox</h2>
+
+<% @quest_outbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned to <%= quest.assignee.char_name %></p>
+<% end %>
+
+<h3>Active Quests</h3>
+<% @active_outbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned to <%= quest.assignee.char_name %></p>
+<% end %>
+
+<h3>Declined Quests</h3>
+<% @declined_outbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned to <%= quest.assignee.char_name %></p>
+<% end %>
+
+<h3>Cancelled Quests</h3>
+<% @cancelled_outbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned to <%= quest.assignee.char_name %></p>
+<% end %>
+
+<h3>Completed Quests</h3>
+<% @complete_outbox.each do |quest| %>
+<p><a href="/quests/<%= quest.id %>" ><%= quest.name %></a> assigned to <%= quest.assignee.char_name %></p>
 <% end %>
 
 <h3><a href="/friends">Friends</a></h3>

@@ -3,9 +3,20 @@ class UsersController < ApplicationController
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
 
-      @my_quests = Quest.where(assignee_id: current_user.id)
+      my_quests = Quest.where(assignee_id: current_user.id)
+      my_assigned_quests = Quest.where(assigner_id: current_user.id)
 
-      @assigned_quests = Quest.where(assigner_id: current_user.id)
+      @quest_inbox = my_quests.where(status_code: 0)
+      @active_inbox = my_quests.where(status_code: 1)
+      @declined_inbox = my_quests.where(status_code: 2)
+      @cancelled_inbox = my_quests.where(status_code: 3)
+      @complete_inbox = my_quests.where(status_code: 4)
+
+      @quest_outbox = my_assigned_quests.where(status_code: 0)
+      @active_outbox = my_assigned_quests.where(status_code: 1)
+      @declined_outbox = my_assigned_quests.where(status_code: 2)
+      @cancelled_outbox = my_assigned_quests.where(status_code: 3)
+      @complete_outbox = my_assigned_quests.where(status_code: 4)
 
       accepted_friendships_1 = current_user.friendships.where(status_code: 1)
       accepted_friendships_2 = current_user.inverse_friendships.where(status_code: 1)

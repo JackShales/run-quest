@@ -14,4 +14,9 @@ class Quest < ApplicationRecord
     assigner = User.find_by(id: assigner_id)
     assigner
   end
+
+  def status
+    statuses = ["awaiting response", "active", "declined", "cancelled", "complete"]
+    statuses[status_code]
+  end
 end
