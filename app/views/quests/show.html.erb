@@ -4,6 +4,23 @@
 <p><%= @quest.notes %></p>
 <p><%= @quest.deadline %></p>
 
+<div ng-app="app">
+  <div ng-controller="activityCtrl" ng-init="setup()">
+    <div>
+      <label>
+        Sync activity to quest:
+      </label>
+        <input ng-model="dateFilter" list="startTimes">
+        <datalist id="startTimes">
+          <option ng-repeat="activity in activities">{{ activity.start_time }}</option>
+        </datalist>
+    </div>
+    <div ng-repeat="activity in activities | filter: { startTime: dateFilter }">
+      <p>Run on {{ activity.startTime }}</p>
+    </div>
+  </div>
+</div>
+
 
 
 <% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
