@@ -32,4 +32,13 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
+
+  # API routes
+  namespace :api do
+    namespace :v1 do
+      get '/activities' => 'activities#index'
+
+      get '/activities/:id' => 'activities#show'
+    end
+  end
 end
