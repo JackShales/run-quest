@@ -8,15 +8,15 @@
   <div ng-controller="activityCtrl" ng-init="setup()">
     <div>
       <label>
-        Sync activity to quest:
+        Search date:
       </label>
-        <input ng-model="dateFilter" list="startTimes">
-        <datalist id="startTimes">
-          <option ng-repeat="activity in activities">{{ activity.start_time }}</option>
-        </datalist>
+        <input ng-model="dateFilter">
     </div>
-    <div ng-repeat="activity in activities | filter: { startTime: dateFilter }">
-      <p ng-if="userActivity(activity, <%= current_user.id %>)">Run on {{ activity.startTime }}</p>
+    <div ng-if="userActivity(activity, <%= current_user.id %>)" ng-repeat="activity in activities | filter: { startTime: dateFilter }">
+      <h5>Run on {{activity.startTime}}</h5>
+      <p>distance: {{activity.distance}}</p>
+      <p>duraton: {{activity.duration}}</p>
+      <p>calories: {{activity.calories}}</p>
     </div>
   </div>
 </div>
