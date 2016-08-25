@@ -1,6 +1,6 @@
 <h1>Activities</h1>
 <% @activities.each do |activity| %>
-<h5>Date: <a href="/activities/<%= activity.id %>"><%= activity.start_time %></a></h5>
+<h5>Date: <a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h5>
 <p>Duration: <%= activity.duration %></p>
 <p>Calories: <%= activity.calories %></p>
 <p>Distance: <%= activity.distance %></p>

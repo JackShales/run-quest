@@ -5,5 +5,5 @@ json.array! @activities do |activity|
   json.calories activity.calories
   json.duration activity.duration
   json.distance activity.distance
-  json.startTime activity.start_time
+  json.startTime activity.friendly_start_time
 end
