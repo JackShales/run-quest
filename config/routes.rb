@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # user dashboard
   get '/' => 'users#home'
   get '/users' => 'users#index'
@@ -37,8 +38,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/activities' => 'activities#index'
-
       get '/activities/:id' => 'activities#show'
+
+      get '/quests' => 'quests#index'
+      get '/quests/:id' => 'quests#show'
     end
   end
 end
