@@ -4,6 +4,8 @@
 <p><%= @quest.notes %></p>
 <p><%= @quest.deadline %></p>
 
+
+
 <% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
 <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
     <%= check_box_tag :choice, 3 %>

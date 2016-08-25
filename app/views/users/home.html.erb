@@ -14,6 +14,9 @@
 
 <p><a href="/users">Find new friends</a></p>
 <p><a href="/activities">See all my activities</a></p>
+
+<%= link_to "Sync Runkeeper Activities", "/activities", method: :post %>
+
 <% unless current_user.access_token %>
 <a href="<%= @auth %>">Connect to RunKeeper</a>
 <% end %>

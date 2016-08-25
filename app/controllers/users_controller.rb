@@ -3,21 +3,6 @@ class UsersController < ApplicationController
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
 
-      my_quests = Quest.where(assignee_id: current_user.id)
-      my_assigned_quests = Quest.where(assigner_id: current_user.id)
-
-      @quest_inbox = my_quests.where(status_code: 0)
-      @active_inbox = my_quests.where(status_code: 1)
-      @declined_inbox = my_quests.where(status_code: 2)
-      @cancelled_inbox = my_quests.where(status_code: 3)
-      @complete_inbox = my_quests.where(status_code: 4)
-
-      @quest_outbox = my_assigned_quests.where(status_code: 0)
-      @active_outbox = my_assigned_quests.where(status_code: 1)
-      @declined_outbox = my_assigned_quests.where(status_code: 2)
-      @cancelled_outbox = my_assigned_quests.where(status_code: 3)
-      @complete_outbox = my_assigned_quests.where(status_code: 4)
-
       accepted_friendships_1 = current_user.friendships.where(status_code: 1)
       accepted_friendships_2 = current_user.inverse_friendships.where(status_code: 1)
       total_accepted_friendships = accepted_friendships_1 + accepted_friendships_2
@@ -30,27 +15,6 @@ class UsersController < ApplicationController
         end
         friend = User.find_by(id: function_id)
         @accepted_friends << friend
-      end
-
-      pending_friendships_1 = current_user.friendships.where(status_code: 0)
-      pending_friendships_2 = current_user.inverse_friendships.where(status_code: 0)
-      pending_friendships_all = pending_friendships_1 + pending_friendships_2
-      @pending_friends_sent = []
-      @pending_friends_received = []
-      pending_friendships_all.each do |friendship|
-        if friendship.action_user_id == current_user.id && friendship.user_id == current_user.id
-          friend = User.find_by(id: friendship.friend_id)
-          @pending_friends_sent << friend
-        elsif friendship.action_user_id == current_user.id && friendship.friend_id == current_user.id
-          friend = User.find_by(id: friendship.user_id)
-          @pending_friends_sent << friend
-        elsif friendship.action_user_id != current_user.id && friendship.user_id == current_user.id
-          friend = User.find_by(id: friendship.friend_id)
-          @pending_friends_received << friend
-        else
-          friend = User.find_by(id: friendship.user_id)
-          @pending_friends_received << friend
-        end
       end
       render 'home.html.erb'
     else
@@ -108,7 +72,7 @@ class UsersController < ApplicationController
       }
     ).body
     current_user.update(access_token: @post["access_token"], token_type: @post["token_type"])
-    hg_activities_raw = Unirest.get("http://api.runkeeper.com/fitnessActivities/?token_type=#{current_user.token_type}&access_token=#{current_user.access_token}").body
+    hg_activities_raw = Unirest.get("http://api.runkeeper.com/fitnessActivities/?page=0&pageSize=1000&token_type=#{current_user.token_type}&access_token=#{current_user.access_token}").body
     hg_activities = hg_activities_raw["items"]
 
     quest = Quest.create(
