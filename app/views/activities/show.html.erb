@@ -1,4 +1,8 @@
 <h1>Activity on <%= @activity.friendly_start_time %></h1>
-<p>Duration: <%= @activity.duration %></p>
+<p>Duration: <%= @activity.friendly_duration %></p>
 <p>Calories: <%= @activity.calories %></p>
-<p>Distance: <%= @activity.distance %></p>
+<p>Distance: <%= @activity.distance_in_miles %></p>
+<p>Pace: <%= @activity.avg_pace %></p>
+
+<p><a href="/activities">Return To All Activities</a></p>
+<p><a href="/">Return Home</a></p>

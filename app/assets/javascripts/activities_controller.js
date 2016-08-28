@@ -14,5 +14,11 @@
         return true;
       }
     };
+
+    $scope.joinToQuest = function(inputActivity, inputQuestId) {
+      $http.patch('/api/v1/activities/' + inputActivity.id).then(function(response) {
+        
+      });
+    };
   });
 }());

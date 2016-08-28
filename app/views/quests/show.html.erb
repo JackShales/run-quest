@@ -2,10 +2,14 @@
 <h3><%= @quest.quest_type %> Quest</h3>
 <h5>Assigned by <%= @assigner.char_name %> to <%= "#{@assignee.char_name}, #{@quest.status}" %></h5>
 <p><%= @quest.notes %></p>
-<p><%= @quest.deadline %></p>
+<p>Deadline: <%= @quest.deadline %> </p>
+
+<p><a href="/quests">Back to All Quests</a></p>
+<p><a href="/">Return Home</a></p>
 
 <div ng-app="app">
   <div ng-controller="activityCtrl" ng-init="setup()">
+  <h3>Link Activity to Quest</h3>
     <div>
       <label>
         Search date:
@@ -13,10 +17,11 @@
         <input ng-model="dateFilter">
     </div>
     <div ng-if="userActivity(activity, <%= current_user.id %>)" ng-repeat="activity in activities | filter: { startTime: dateFilter }">
-      <h5>Run on {{activity.startTime}}</h5>
+      <h5 ng-click="joinToQuest(activity, <%= @quest.id %>)"><a href="#">Run on {{activity.startTime}}</a></h5>
       <p>distance: {{activity.distance}}</p>
       <p>duraton: {{activity.duration}}</p>
       <p>calories: {{activity.calories}}</p>
+      <p>pace: {{activity.avgPace}}</p>
     </div>
   </div>
 </div>
@@ -40,3 +45,4 @@
     <%= submit_tag "Submit" %>
   <% end %>
 <% end %>
+

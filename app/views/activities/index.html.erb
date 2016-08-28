@@ -1,7 +1,10 @@
 <h1>Activities</h1>
 <% @activities.each do |activity| %>
 <h5>Date: <a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h5>
-<p>Duration: <%= activity.duration %></p>
+<p>Duration: <%= activity.distance_in_miles %></p>
 <p>Calories: <%= activity.calories %></p>
-<p>Distance: <%= activity.distance %></p>
+<p>Distance: <%= activity.friendly_duration %></p>
+<p>Pace: <%= activity.avg_pace %></p>
 <% end %>
+
+<p><a href="/">Return Home</a></p>
