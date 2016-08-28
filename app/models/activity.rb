@@ -9,7 +9,7 @@ class Activity < ApplicationRecord
   end
 
   def distance_in_miles
-    distance * 0.000621371
+    (distance * 0.000621371).round(2)
   end
 
   def friendly_duration

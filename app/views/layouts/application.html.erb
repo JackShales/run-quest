@@ -15,19 +15,19 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
     <!-- CORE CSS -->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <!-- REVOLUTION SLIDER -->
-    <link href="assets/plugins/slider.revolution/css/extralayers.css" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/slider.revolution/css/settings.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/slider.revolution/css/extralayers.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/slider.revolution/css/settings.css" rel="stylesheet" type="text/css" />
 
     <!-- THEME CSS -->
-    <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/layout.css" rel="stylesheet" type="text/css" />
 
     <!-- PAGE LEVEL SCRIPTS -->
-    <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+    <link href="/assets/css/header-1.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -105,7 +105,7 @@
 
             <!-- Logo -->
             <a class="logo pull-left" href="/">
-              <img src="assets/images/placeholder.png" alt="" />
+              <img src="/assets/images/placeholder.png" alt="" />
             </a>
 
             <!-- 
@@ -149,6 +149,11 @@
                     </a>
                   </li>
                   <% if current_user %>
+                  <li><!-- SHOP -->
+                    <a href="/users">
+                      FIND FRIENDS
+                    </a>
+                  </li>
                   <li><!-- SHOP -->
                     <a href="/logout">
                       LOG OUT
@@ -221,14 +226,14 @@
 
     <!-- JAVASCRIPT FILES -->
     <script type="text/javascript">var plugin_path = 'assets/plugins/';</script>
-    <script type="text/javascript" src="assets/plugins/jquery/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/jquery/jquery-2.2.3.min.js"></script>
 
-    <script type="text/javascript" src="assets/js/scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/scripts.js"></script>
 
     <!-- REVOLUTION SLIDER -->
-    <script type="text/javascript" src="assets/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
-    <script type="text/javascript" src="assets/js/view/demo.revolution_slider.js"></script>
+    <script type="text/javascript" src="/assets/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="/assets/js/view/demo.revolution_slider.js"></script>
     
   </body>
 </html>
