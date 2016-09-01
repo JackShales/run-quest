@@ -19,4 +19,14 @@ class Quest < ApplicationRecord
     statuses = ["awaiting response", "active", "declined", "cancelled", "complete"]
     statuses[status_code]
   end
+
+  def calc_xp
+    base_xp = 50
+    cal_xp = 0
+    activities.each do |activity|
+      cal_xp = cal_xp + (activity.calories / 5)
+    end
+    total_xp = cal_xp + base_xp
+    total_xp
+  end
 end

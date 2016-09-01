@@ -31,4 +31,30 @@ class User < ApplicationRecord
     end
     response
   end
+
+  def level_change
+    level_bar = 0
+    level_change_value = 0
+    level_hash = {}
+    (1..100).each do |level_number|
+      level_hash.merge!(level_number => level_bar)
+      level_bar += 250 * level_number
+    end
+    (1..100).each do |level_number|
+      if experience > level_hash[level_number] 
+        level_change_value = level_number
+      end
+    end
+    level_change_value
+  end
+
+  def level_up?
+    level_bar = 0
+    level_hash = {}
+    (1..100).each do |level_number|
+      level_hash.merge!(level_number => level_bar)
+      level_bar += 250 * level_number
+    end
+    return true if experience > level_hash[level]
+  end
 end

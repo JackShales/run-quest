@@ -34,6 +34,9 @@ class QuestsController < ApplicationController
 
   def show
     @quest = Quest.find_by(id: params[:id])
+    unassigned_activities = current_user.activities.where(quest_id: nil)
+    @show_activities = unassigned_activities.select { |activity| activity.start_time > (@quest.deadline - 1.month) }
+    @quest_activities = current_user.activities.where(quest_id: @quest.id)
     @assigner = User.find_by(id: @quest.assigner_id)
     @assignee = User.find_by(id: @quest.assignee_id)
     render 'show.html.erb'
@@ -41,7 +44,32 @@ class QuestsController < ApplicationController
 
   def update
     quest = Quest.find_by(id: params[:id])
-    quest.update(status_code: params[:choice].to_i || quest.status_code)
+    quest.name = params[:quest_name] || quest.name
+    quest.status_code = params[:choice].to_i || quest.status_code
+    quest.quest_type = params[:quest_type] || quest.quest_type
+    quest.deadline = params[:deadline] || quest.deadline
+    quest.notes = params[:quest_notes] || quest.notes 
+    quest.save
+    giver = quest.assigner
+    receiver = quest.assignee
+    if params[:choice] && params[:choice].to_i == 4
+      receiver.update(experience: receiver.experience + quest.calc_xp)
+      giver.update(experience: giver.experience + 50)
+    end
+
+    level_bar = 0
+    level_hash = {}
+    (1..100).each do |level_number|
+      level_hash.merge!(level_number => level_bar)
+      level_bar += 250 * level_number
+    end
+
+    if receiver.level_up?
+      receiver.update(level: receiver.level_change)
+    end
+    if giver.level_up?
+      giver.update(level: giver.level_change)
+    end
     redirect_to "/quests/#{quest.id}"
   end
 end

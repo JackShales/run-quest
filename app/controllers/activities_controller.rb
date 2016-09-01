@@ -27,6 +27,10 @@ class ActivitiesController < ApplicationController
   end
 
   def update
+    activity = Activity.find_by(id: params[:id])
+    activity.quest_id = params[:quest_id] || activity.quest_id
+    activity.save
+    redirect_to "/quests/#{activity.quest_id}"
   end
 
   def new

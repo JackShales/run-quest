@@ -32,12 +32,7 @@
       <section class="page-header page-header-xs">
         <div class="container">
 
-          <!-- breadcrumbs -->
-          <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Pages</a></li>
-            <li class="active">Felicia Doe</li>
-          </ol><!-- /breadcrumbs -->
+         <h1>Character Dashboard</h1>
 
         </div>
       </section>
@@ -54,9 +49,9 @@
           <div class="col-lg-3 col-md-3 col-sm-4">
           
             <div class="thumbnail text-center">
-              <img src="assets/images/demo/people/460x700/8-min.jpg" alt="" />
-              <h2 class="size-18 margin-top-10 margin-bottom-0">Felica Doe</h2>
-              <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
+              <img src="<%= current_user.avatar %>" alt="" />
+              <h2 class="size-18 margin-top-10 margin-bottom-0"><%= current_user.char_name %></h2>
+              <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">Lv. <%= current_user.level %> Hero </h3>
             </div>
 
             <!-- completed -->

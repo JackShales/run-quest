@@ -3,28 +3,26 @@
 <h5>Assigned by <%= @assigner.char_name %> to <%= "#{@assignee.char_name}, #{@quest.status}" %></h5>
 <p><%= @quest.notes %></p>
 <p>Deadline: <%= @quest.deadline %> </p>
+<h3>Quest Activities</h3>
+<% @quest_activities.each do |activity| %>
+  <h5>Run on <%= activity.friendly_start_time %></h5>
+  <p><%= activity.distance_in_miles %> miles, duration of <%= activity.friendly_duration %>, average pace of <%= activity.avg_pace %>, <%= activity.calories %> calories burned</p>
+<% end %>
 
 <p><a href="/quests">Back to All Quests</a></p>
 <p><a href="/">Return Home</a></p>
 
-<div ng-app="app">
-  <div ng-controller="activityCtrl" ng-init="setup()">
-  <h3>Link Activity to Quest</h3>
+  <h3>Link Recent Activities to Quest</h3>
     <div>
-      <label>
-        Search date:
-      </label>
-        <input ng-model="dateFilter">
+    <% @show_activities.each do |activity| %>
+        <%= form_tag  "/activities/#{activity.id}", method: :patch do %>
+          <%= hidden_field_tag :quest_id, @quest.id %>
+          <%= submit_tag "Run on #{activity.friendly_start_time}" %>
+        <% end %>
+        <p><%= activity.distance_in_miles %> miles, duration of <%= activity.friendly_duration %>, average pace of <%= activity.avg_pace %>, <%= activity.calories %> calories burned</p>
+    <% end %>
     </div>
-    <div ng-if="userActivity(activity, <%= current_user.id %>)" ng-repeat="activity in activities | filter: { startTime: dateFilter }">
-      <h5 ng-click="joinToQuest(activity, <%= @quest.id %>)"><a href="#">Run on {{activity.startTime}}</a></h5>
-      <p>distance: {{activity.distance}}</p>
-      <p>duraton: {{activity.duration}}</p>
-      <p>calories: {{activity.calories}}</p>
-      <p>pace: {{activity.avgPace}}</p>
-    </div>
-  </div>
-</div>
+
 
 
 

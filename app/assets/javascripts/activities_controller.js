@@ -15,10 +15,10 @@
       }
     };
 
-    $scope.joinToQuest = function(inputActivity, inputQuestId) {
-      $http.patch('/api/v1/activities/' + inputActivity.id).then(function(response) {
+    // $scope.joinToQuest = function(inputActivity, inputQuestId) {
+    //   $http.patch('/api/v1/activities/' + inputActivity.id).then(function(response) {
         
-      });
-    };
+    //   });
+    // };
   });
 }());
