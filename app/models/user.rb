@@ -57,4 +57,16 @@ class User < ApplicationRecord
     end
     return true if experience > level_hash[level]
   end
+
+  def exp_ratio
+    level_bar = 0
+    level_hash = {}
+    (1..100).each do |level_number|
+      level_hash.merge!(level_number => level_bar)
+      level_bar += 250 * level_number
+    end
+    exp_bar = level_hash[(level + 1)]
+    level_ratio = (experience.to_f / exp_bar.to_f) * 100
+    level_ratio
+  end
 end

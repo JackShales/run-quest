@@ -50,8 +50,10 @@ class QuestsController < ApplicationController
     quest.deadline = params[:deadline] || quest.deadline
     quest.notes = params[:quest_notes] || quest.notes 
     quest.save
+
     giver = quest.assigner
     receiver = quest.assignee
+    
     if params[:choice] && params[:choice].to_i == 4
       receiver.update(experience: receiver.experience + quest.calc_xp)
       giver.update(experience: giver.experience + 50)

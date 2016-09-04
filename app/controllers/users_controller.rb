@@ -16,6 +16,7 @@ class UsersController < ApplicationController
         friend = User.find_by(id: function_id)
         @accepted_friends << friend
       end
+      
       render 'home.html.erb'
     else
       redirect_to '/login'
