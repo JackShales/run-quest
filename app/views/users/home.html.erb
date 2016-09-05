@@ -1,15 +1,7 @@
-<h1><%= current_user.char_name %></h1>
-<p>Experience: <%= current_user.experience %></p>
-<p>Speed: <%= current_user.speed %></p>
-<p>Endurance: <%= current_user.endurance %></p>
-<p>Mental:  <%= current_user.mental %></p>
-<p>Level:  <%= current_user.level %></p>
 
 <%= link_to "Sync Runkeeper Activities", "/activities", method: :post %>
 
-<% unless current_user.access_token %>
-<a href="<%= @auth %>">Connect to RunKeeper</a>
-<% end %>
+
 
 
       <!-- 
@@ -31,9 +23,7 @@
       -->
       <section class="page-header page-header-xs">
         <div class="container">
-
-         <h1>Character Dashboard</h1>
-
+         <h1>Hero Dashboard</h1>
         </div>
       </section>
       <!-- /PAGE HEADER -->
@@ -55,7 +45,7 @@
 
             <!-- completed -->
             <div class="margin-bottom-30">
-              <label>Level <%= current_user.exp_ratio %>% complete</label>
+              <label><%= current_user.exp_to_go %> xp to advance</label>
               <div class="progress progress-xxs">
                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= current_user.exp_ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.exp_ratio %>%; min-width: 2em;"></div>
               </div>
@@ -64,11 +54,12 @@
 
             <!-- SIDE NAV -->
             <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-              <li class="list-group-item active"><a href="page-profile.html"><i class="fa fa-eye"></i> PROFILE</a></li>
-              <li class="list-group-item"><a href="page-profile-projects.html"><i class="fa fa-tasks"></i> PROJECTS</a></li>
-              <li class="list-group-item"><a href="page-profile-comments.html"><i class="fa fa-comments-o"></i> COMMENTS</a></li>
-              <li class="list-group-item"><a href="page-profile-history.html"><i class="fa fa-history"></i> HISTORY</a></li>
-              <li class="list-group-item"><a href="page-profile-settings.html"><i class="fa fa-gears"></i> SETTINGS</a></li>
+              <li class="list-group-item"><a href="#"><i class="fa fa-arrow-circle-o-up"></i> LEVEL: <%= current_user.level %> </a></li>
+              <li class="list-group-item"><a href="#"><i class="fa fa-star-o"></i> EXPERIENCE: <%= current_user.experience %></a></li>
+              <li class="list-group-item"><a href="#"><i class="fa fa-road"></i> ENDURANCE: <%= current_user.endurance %></a></li>
+              <li class="list-group-item"><a href="#"><i class="fa fa-bolt"></i> SPEED: <%= current_user.speed %> </a></li>
+              <li class="list-group-item"><a href="#"><i class="fa fa-flask"></i> MENTAL: <%= current_user.mental %></a></li>
+              
 
               <li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->                
                 <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1">DROPDOWN EXAMPLE</a>
@@ -116,9 +107,13 @@
                   <li class="margin-bottom-10"><i class="fa fa-twitter width-20 hidden-xs hidden-sm"></i> <a href="http://www.twitter.com/stepofweb">@stepofweb</a></li>
                 </ul>
               </div>
-            
             </div>
-
+            <img class="image-bw width-100" src="/assets/images/runkeeper.png">
+            <% if current_user.access_token %>
+            <%= link_to "Sync with Runkeeper", "/activities", method: :post %>
+            <% else %>
+            <a href="<%= @auth %>">Connect to RunKeeper</a>
+            <% end %>
           </div>
 
 

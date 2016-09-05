@@ -69,4 +69,16 @@ class User < ApplicationRecord
     level_ratio = (experience.to_f / exp_bar.to_f) * 100
     level_ratio
   end
+
+  def exp_to_go
+    level_bar = 0
+    level_hash = {}
+    (1..100).each do |level_number|
+      level_hash.merge!(level_number => level_bar)
+      level_bar += 250 * level_number
+    end
+    exp_bar = level_hash[(level + 1)]
+    exp_to_next_level = exp_bar - experience
+    exp_to_next_level
+  end
 end
