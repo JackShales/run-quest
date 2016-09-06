@@ -1,5 +1,4 @@
 
-<%= link_to "Sync Runkeeper Activities", "/activities", method: :post %>
 
 
 
@@ -59,20 +58,6 @@
               <li class="list-group-item"><a href="#"><i class="fa fa-road"></i> ENDURANCE: <%= current_user.endurance %></a></li>
               <li class="list-group-item"><a href="#"><i class="fa fa-bolt"></i> SPEED: <%= current_user.speed %> </a></li>
               <li class="list-group-item"><a href="#"><i class="fa fa-flask"></i> MENTAL: <%= current_user.mental %></a></li>
-              
-
-              <li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->                
-                <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1">DROPDOWN EXAMPLE</a>
-                <ul id="collapse-1" class="collapse"><!-- NOTE: "collapse in" to be open on page load -->
-                  <li><a href="#"><i class="fa fa-angle-right"></i> SUMBENU 1</a></li>
-                  <li>
-                    <span class="badge badge-red">New</span>
-                    <a href="#"><i class="fa fa-angle-right"></i> SUMBENU 2</a>
-                  </li>
-                  <li class="active"><a href="#"><i class="fa fa-angle-right"></i> SUMBENU 3</a></li>
-                  <li><a href="#"><i class="fa fa-angle-right"></i> SUMBENU 4</a></li>
-                </ul>
-              </li>
             </ul>
             <!-- /SIDE NAV -->
 
@@ -81,32 +66,21 @@
             <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
               <div class="row margin-bottom-20">
                 <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">12</h2>
-                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">PROJECTS</h3>
+                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway"><%= @active_quests_num %></h2>
+                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">ACTIVE QUESTS</h3>
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">34</h2>
-                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">TASKS</h3>
+                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway"><%= @completed_quests_num %></h2>
+                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">COMPLETED QUESTS</h3>
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
-                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">UPLOADS</h3>
+                  <h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway"><%= @total_activities_num %></h2>
+                  <h3 class="size-11 margin-top-0 margin-bottom-10 text-info">TOTAL ACTIVITIES</h3>
                 </div>
               </div>
               <!-- /info -->
-
-              <div class="text-muted">
-                <h2 class="size-18 text-muted margin-bottom-6"><b>About</b> Felicia Doe</h2>
-                <p>Lorem ipsum dolor sit amet diam nonummy nibh dolore.</p>
-                
-                <ul class="list-unstyled nomargin">
-                  <li class="margin-bottom-10"><i class="fa fa-globe width-20 hidden-xs hidden-sm"></i> <a href="http://www.stepofweb.com">www.stepofweb.com</a></li>
-                  <li class="margin-bottom-10"><i class="fa fa-facebook width-20 hidden-xs hidden-sm"></i> <a href="http://www.facebook.com/stepofweb">stepofweb</a></li>
-                  <li class="margin-bottom-10"><i class="fa fa-twitter width-20 hidden-xs hidden-sm"></i> <a href="http://www.twitter.com/stepofweb">@stepofweb</a></li>
-                </ul>
-              </div>
             </div>
             <img class="image-bw width-100" src="/assets/images/runkeeper.png">
             <% if current_user.access_token %>
@@ -126,7 +100,7 @@
                 <div class="box1 noradius">
                   <div class="box-icon-title">
                     <i class="fa fa-user"></i>
-                    <h2>Felica Doe &ndash; Profile</h2>
+                    <h2><%= current_user.char_name %> &ndash; Profile</h2>
                   </div>
                   <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
                 </div>

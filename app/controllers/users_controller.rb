@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
 
+      @active_quests_num = Quest.where(assignee_id: current_user.id, status_code: 1).length
+      @completed_quests_num = Quest.where(assignee_id: current_user.id, status_code: 4).length
+      @total_activities_num = current_user.activities.length
+
       accepted_friendships_1 = current_user.friendships.where(status_code: 1)
       accepted_friendships_2 = current_user.inverse_friendships.where(status_code: 1)
       total_accepted_friendships = accepted_friendships_1 + accepted_friendships_2
@@ -16,7 +20,6 @@ class UsersController < ApplicationController
         friend = User.find_by(id: function_id)
         @accepted_friends << friend
       end
-      
       render 'home.html.erb'
     else
       redirect_to '/login'
