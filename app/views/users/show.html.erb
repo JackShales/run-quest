@@ -405,55 +405,36 @@
             </div>
 
 
-            <form method="post" action="#" class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
-              <div class="box-inner">
-                <h4 class="uppercase">LEAVE A MESSAGE TO <strong>FELICIA DOE</strong></h4>
-                
-                <textarea required class="form-control word-count" data-maxlength="100" rows="5" placeholder="Type your message here..."></textarea>
-                <div class="text-muted text-right margin-top-3 size-12 margin-bottom-10">
-                  <span>0/100</span> Words
-                </div>
+            
 
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> SEND MESSAGE</button>
+            <%= form_tag '/quests', class: "box-light margin-top-20", method: :post do %>
+              <div class="box-inner">
+                <h4 class="uppercase">Assign quest to <strong><%= @user.char_name %></strong></h2>
+                <div>
+                  <%= label_tag :quest_type %>
+                  <%= select_tag :quest_type, options_for_select(["Endurance", "Mental", "Speed"], "")%>
+                </div>
+                <div>
+                  <%= label_tag :quest_name %>
+                  <%= text_field_tag :name, "", class: "form-control" %>
+                </div>
+                <div>
+                  <%= label_tag :quest_notes %>
+                  <%= text_field_tag :goal, "", class: "form-control" %>
+                </div>
+                <div>
+                  <%= label_tag :deadline %>
+                  <%= select_date Date.today, prefix: :deadline, class: "form-control" %>
+                </div>
+                <div>
+                  <%= hidden_field_tag :assignee_id, @user.id %>
+                  <%= submit_tag "Submit Quest", class: "btn btn-primary" %>
+                </div>
               </div>
-            </form>
+            <% end %>
 
           </div>
           
         </div>
       </section>
       <!-- / -->
-
-
-
-<h1><%= @user.char_name %></h1>
-<p>Experience: <%= @user.experience %></p>
-<p>Speed: <%= @user.speed %></p>
-<p>Endurance: <%= @user.endurance %></p>
-<p>Mental:  <%= @user.mental %></p>
-<p>Level:  <%= @user.level %></p>
-
-<h3>Submit quest to <%= @user.char_name %></h3>
-
-<%= form_tag '/quests', method: :post do %>
-  <div>
-    <%= label_tag :quest_type %>
-    <%= select_tag :quest_type, options_for_select(["endurance", "mental", "speed"], "")%>
-  </div>
-  <div>
-    <%= label_tag :quest_name %>
-    <%= text_field_tag :name %>
-  </div>
-  <div>
-    <%= label_tag :quest_goal %>
-    <%= text_field_tag :goal %>
-  </div>
-  <div>
-    <%= label_tag :deadline %>
-    <%= select_date Date.today, prefix: :deadline %>
-  </div>
-  <div>
-    <%= hidden_field_tag :assignee_id, @user.id %>
-    <%= submit_tag "Submit quest" %>
-  </div>
-<% end %>

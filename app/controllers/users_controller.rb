@@ -33,6 +33,9 @@ class UsersController < ApplicationController
 
   def show 
     @user = User.find_by(id: params[:id])
+    @active_quests_num = Quest.where(assignee_id: @user.id, status_code: 1).length
+    @completed_quests_num = Quest.where(assignee_id: @user.id, status_code: 4).length
+    @total_activities_num = @user.activities.length
     render 'show.html.erb'
   end
 
