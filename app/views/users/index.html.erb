@@ -63,7 +63,7 @@
                         <% if !current_user.friend?(user) %>
                           <%= form_tag '/friends', method: :post do %>
                             <%= hidden_field_tag :friend_id, user.id %>
-                            <%= submit_tag "Add friend" %>
+                            <%= submit_tag "Add friend", class: "btn btn-primary" %>
                           <% end %>
                         <% else %>
                           <p>Already friends!</p>
