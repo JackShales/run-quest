@@ -40,11 +40,12 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user = User.new
     render 'new.html.erb'
   end
 
   def create
-    user = User.new(
+    @user = User.new(
       char_name: params[:character_name],
       email: params[:email],
       password: params[:password],
@@ -55,13 +56,13 @@ class UsersController < ApplicationController
       mental: 1,
       level: 1
     )
-    if user.save
-      session[:user_id] = user.id
+    if @user.save
+      session[:user_id] = @user.id
       flash[:success] = 'Character Created'
       redirect_to '/'
     else
-      flash[:warning] = 'Invalid email or password!'
-      redirect_to '/signup'
+      flash[:danger] = 'Character Name or E-Mail already in use!'
+      render 'new.html.erb'
     end
   end
 
