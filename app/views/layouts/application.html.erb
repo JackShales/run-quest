@@ -183,11 +183,17 @@
       </div>
       </div>
 
-
+   
     <% flash.each do |name, message| %>
-      <div><%= message %></div>
+      <div class="alert alert-<%= name %> alertdidmissable" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p> <%= message.html_safe %> </p>
+      </div>
     <% end %>
-    <%= yield %>
+  <%= yield %>
+  
 
 
       <!-- FOOTER -->

@@ -79,9 +79,9 @@
             </div>
             <img class="image-bw width-100" src="/assets/images/runkeeper.png">
             <% if @user.access_token %>
-            <%= link_to "Sync with Runkeeper", "/activities", method: :post %>
+            Using Runkeeper
             <% else %>
-            <a href="<%= @auth %>">Connect to RunKeeper</a>
+            Runkeeper Inactive
             <% end %>
           </div>
 
