@@ -31,50 +31,49 @@
       <!-- -->
       <section>
         <div class="container">
-          
-          <div class="row">
-          
-            <!-- item -->
-            <% @users.each do |user| %>
-              <% if user.id != current_user.id %>
-                <div class="col-md-3 col-sm-6">
-                  <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
-                    <div class="front">
-                      <div class="box1 box-default">
-                        <div class="box-icon-title">
-                          <img class="img-responsive" src="<%= user.avatar %>" alt="" />
-                          <h2><%= user.char_name %></h2>
+          <% @users.each_slice(4) do |four_users| %>
+            <div class="row">
+              <% four_users.each do |user| %>
+                <% if user.id != current_user.id %>
+                  <div class="col-md-3">
+                    <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
+                      <div class="front">
+                        <div class="box1 box-default">
+                          <div class="box-icon-title">
+                            <img class="img-responsive" src="<%= user.avatar %>" alt="" />
+                            <h2><%= user.char_name %></h2>
+                            <small>Lv. <%= user.level  %> Hero</small>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <div class="back">
+                        <div class="box2 box-default">
+                          <h4 class="nomargin"><%= user.char_name %></h4>
                           <small>Lv. <%= user.level  %> Hero</small>
+      
+                          <hr />
+                              <p>Endurance: <%= user.endurance %></p>
+                              <p>Speed: <%= user.speed %></p>
+                              <p>Mental: <%= user.mental %></p>
+                          <hr />
+      
+                          <% if !current_user.friend?(user) %>
+                            <%= form_tag '/friends', method: :post do %>
+                              <%= hidden_field_tag :friend_id, user.id %>
+                              <%= submit_tag "Add friend", class: "btn btn-primary" %>
+                            <% end %>
+                          <% end %>
                         </div>
                       </div>
                     </div>
-    
-                    <div class="back">
-                      <div class="box2 box-default">
-                        <h4 class="nomargin"><%= user.char_name %></h4>
-                        <small>Lv. <%= user.level  %> Hero</small>
-    
-                        <hr />
-                            <p>Endurance: <%= user.endurance %></p>
-                            <p>Speed: <%= user.speed %></p>
-                            <p>Mental: <%= user.mental %></p>
-                        <hr />
-    
-                        <% if !current_user.friend?(user) %>
-                          <%= form_tag '/friends', method: :post do %>
-                            <%= hidden_field_tag :friend_id, user.id %>
-                            <%= submit_tag "Add friend", class: "btn btn-primary" %>
-                          <% end %>
-                        <% else %>
-                          <p>Already friends!</p>
-                        <% end %>
-                      </div>
-                    </div>
                   </div>
-    
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
+            <br>
+          <% end %>
+        </div>
       </section>
       <!-- / -->
 
