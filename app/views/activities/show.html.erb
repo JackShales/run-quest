@@ -20,24 +20,37 @@
   var map;
   var latitude = 41.881;
   var longitude = -87.623;
+  var gpsPath;
+  var coordinateAry = [];
+
   function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: latitude, lng: longitude},
-      zoom: 12
+    $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
+      gpsPath = data.path;
+      gpsPath.forEach(setCoordinates);
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: coordinateAry[0].lat, lng: coordinateAry[0].lng},
+        zoom: 16
+      });
+
+      var runPath = new google.maps.Polyline({
+        path: coordinateAry,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.5,
+        strokeWeight: 2
+      });
+      runPath.setMap(map);
     });
   }
 
-  // var activityDataGet = $.get("http://localhost:3000/api/v1/activities/<%= @activity.id %>.json", function(data) {
-  //   console.log(data);
-  //   var activityData = data.uri;
-  //   console.log(activityData);
-  // });
+  function setCoordinates(inputObject) {
+    var tempObject = {};
+    tempObject.lat = inputObject.latitude;
+    tempObject.lng = inputObject.longitude;
+    coordinateAry.push(tempObject);
+  }
 
-  var activityGpsGet = $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
-    console.log(data);
-    var gpsPath = data.path;
-    console.log(gpsPath);
-  });
   
 </script>
 
