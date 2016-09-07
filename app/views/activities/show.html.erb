@@ -41,6 +41,28 @@
         strokeWeight: 2
       });
       runPath.setMap(map);
+      var startMarker = new google.maps.Marker({
+        position: coordinateAry[0],
+        map: map,
+        title: 'Start'
+      });
+      var endMarker = new google.maps.Marker({
+        position: coordinateAry[(coordinateAry.length - 1)],
+        map: map,
+        title: 'Finish'
+      });
+      var infoWindowStart = new google.maps.InfoWindow({
+        content: "Start"
+      });
+      var infoWindowFinish = new google.maps.InfoWindow({
+        content: "Finish"
+      });
+      startMarker.addListener('click', function() {
+        infoWindowStart.open(map, startMarker);
+      });
+      endMarker.addListener('click', function() {
+        infoWindowFinish.open(map, endMarker);
+      });
     });
   }
 
