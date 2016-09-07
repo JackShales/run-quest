@@ -14,6 +14,7 @@ class ActivitiesController < ApplicationController
         distance: activity["total_distance"],
         duration: activity["duration"],
         calories: activity["total_calories"],
+        uri: activity["uri"],
         user_id: current_user.id
       )
     end
@@ -23,6 +24,9 @@ class ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find_by(id: params[:id])
+    @url = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}&callback=initMap"
+    activity_data = Unirest.get("http://api.runkeeper.com#{@activity.uri}&token_type=#{current_user.token_type}&access_token=#{current_user.access_token}").body
+    @activity_gps_data = activity_data["path"]
     render 'show.html.erb'
   end
 

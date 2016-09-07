@@ -1,8 +1,44 @@
-<h1>Activity on <%= @activity.friendly_start_time %></h1>
-<p>Duration: <%= @activity.friendly_duration %></p>
-<p>Calories: <%= @activity.calories %></p>
-<p>Distance: <%= @activity.distance_in_miles %></p>
-<p>Pace: <%= @activity.avg_pace %></p>
+<div class="container">
+  <div class= row>
+    <div class="col-md-6">
+      <h2>Activity on <%= @activity.friendly_start_time %></h2>
+      <p>Duration: <%= @activity.friendly_duration %></p>
+      <p>Calories: <%= @activity.calories %></p>
+      <p>Distance: <%= @activity.distance_in_miles %></p>
+      <p>Pace: <%= @activity.avg_pace %></p>
+      
+      <p><a href="/activities">Return To All Activities</a></p>
+      <p><a href="/">Return Home</a></p>
+    </div>
+    <div class="col-md-6">
+      <div id="map" class="img-rounded"></div>
+    </div>
+  </div>
+</div>
 
-<p><a href="/activities">Return To All Activities</a></p>
-<p><a href="/">Return Home</a></p>
+<script>
+  var map;
+  var latitude = 41.881;
+  var longitude = -87.623;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: latitude, lng: longitude},
+      zoom: 12
+    });
+  }
+
+  // var activityDataGet = $.get("http://localhost:3000/api/v1/activities/<%= @activity.id %>.json", function(data) {
+  //   console.log(data);
+  //   var activityData = data.uri;
+  //   console.log(activityData);
+  // });
+
+  var activityGpsGet = $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
+    console.log(data);
+    var gpsPath = data.path;
+    console.log(gpsPath);
+  });
+  
+</script>
+
+<script src=<%= @url %> async defer></script>

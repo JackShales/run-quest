@@ -7,4 +7,5 @@ json.array! @activities do |activity|
   json.distance activity.distance_in_miles
   json.avgPace activity.avg_pace
   json.startTime activity.friendly_start_time
+  json.uri activity.uri
 end
