@@ -110,17 +110,6 @@
                 </li>
               </ul>
               <p><%= quest.notes %></p>
-              <% if quest.status_code == 0 %>
-                <%= form_tag "/quests/#{quest.id}", method: :patch do %>
-                  <%= radio_button_tag :choice, 1 %>
-                  <%= label_tag :choice_accept, "Accept" %>
-                  <%= radio_button_tag :choice, 2 %>
-                  <%= label_tag :choice_decline, "Decline" %>
-                  <%= submit_tag "Submit", class: "btn btn-primary" %>
-                <% end %>
-              <% end %>
-
-              
               </div>
               
           <% end %>

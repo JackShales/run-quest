@@ -118,18 +118,20 @@
 
               <% if @show_activities %>
                 <% if @quest.assignee_id == current_user.id %>
-                <h3>Link Recent Runkeeper Activities to <%= @quest.name %></h3>
-                  <% @show_activities.each do |activity| %>
-                    <div class="container">
-                      <%= form_tag  "/activities/#{activity.id}", method: :patch do %>
-                        <%= hidden_field_tag :quest_id, @quest.id %>
-                        <%= submit_tag "Run on #{activity.friendly_start_time}", class: "btn btn-primary" %>
-                      <% end %>
-                      <p><strong><%= activity.distance_in_miles %></strong> miles</p>
-                      <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
-                      <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
-                      <p><strong><%= activity.calories %></strong> calories burned</p>
-                    </div>
+                  <% if current_user.access_token %>
+                    <h3>Link Recent Runkeeper Activities to <%= @quest.name %></h3>
+                    <% @show_activities.each do |activity| %>
+                      <div class="container">
+                        <%= form_tag  "/activities/#{activity.id}", method: :patch do %>
+                          <%= hidden_field_tag :quest_id, @quest.id %>
+                          <%= submit_tag "Run on #{activity.friendly_start_time}", class: "btn btn-primary" %>
+                        <% end %>
+                        <p><strong><%= activity.distance_in_miles %></strong> miles</p>
+                        <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
+                        <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
+                        <p><strong><%= activity.calories %></strong> calories burned</p>
+                      </div>
+                    <% end %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -180,16 +182,20 @@
               <div class="row col-md-4">
                 <div class="form-group">
                   <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
-                    <%= radio_button_tag :choice, 4 %>
-                    <%= label_tag :choice_complete, "Quest Completed" %>
+                    <div class="col-md-1">
+                      <%= radio_button_tag :choice, 4 %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= label_tag :choice_complete, "Quest Completed" %>
+                    </div>
                     <div class="col-md-1">
                       <%= radio_button_tag :choice, 3 %>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <%= label_tag :choice_cancel, "Cancel Quest" %>
                     </div>
-                    <div class="col-md-2">
-                      <%= submit_tag "Submit", class: "btn btn-danger" %>
+                    <div class="col-md-3">
+                      <%= submit_tag "Submit", class: "btn btn-primary" %>
                     </div>
                   <% end %>
                 </div>

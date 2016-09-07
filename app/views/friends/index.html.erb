@@ -1,25 +1,157 @@
-<h1>Friends</h1>
+<section class="page-header">
+        <div class="container">
 
-<% @accepted_friends.each do |friend| %>
-  <p><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></p>
-<% end %>
+          <h1>FRIENDS</h1>
 
-<h3>Pending Friend Requests Sent</h3>
-<% @pending_friends_sent.each do |friend| %>
-  <p><%= friend.char_name %></p>
-<% end %>
+        </div>
+      </section>
+      <!-- /PAGE HEADER -->
 
-<h3>Pending Friend Requests Received</h3>
-<% @pending_friends_received.each do |friend| %>
-  <p><%= friend.char_name %></p>
-  <%= form_tag "/friends/#{friend.id}", method: :patch do %>
-    <%= radio_button_tag :choice, 1 %>
-    <%= label_tag :choice_accept, "Accept" %>
-    <%= radio_button_tag :choice, 2 %>
-    <%= label_tag :choice_decline, "Decline" %>
-    <%= submit_tag "Submit" %>
-  <% end %>
-<% end %>
 
-<p><a href="/">Return Home</a></p>
 
+
+      <!-- -->
+      <% if @accepted_friends.length != 0 %>
+        <section>
+          <div class="container">
+            <% @accepted_friends.each_slice(4) do |four_friends| %>
+              <div class="row">
+                <% four_friends.each do |user| %>
+                  <% if user.id != current_user.id %>
+                    <div class="col-md-3">
+                      <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
+                        <div class="front">
+                          <div class="box1 box-default">
+                            <div class="box-icon-title">
+                              <img class="img-responsive" src="<%= user.avatar %>" alt="" />
+                              <h2><%= user.char_name %></h2>
+                              <small>Lv. <%= user.level  %> Hero</small>
+                            </div>
+                          </div>
+                        </div>
+        
+                        <div class="back">
+                          <div class="box2 box-default">
+                            <h4 class="nomargin"><a href="/users/<%= user.id %>"><%= user.char_name %></a></h4>
+                            <small>Lv. <%= user.level  %> Hero</small>
+                            <hr />
+                                <p>Endurance: <%= user.endurance %></p>
+                                <p>Speed: <%= user.speed %></p>
+                                <p>Mental: <%= user.mental %></p>
+                            <hr />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
+
+      <br>
+
+      <% if @pending_friends_sent.length != 0 %>
+        <section>
+          <div class="container">
+          <h2>Friend requests sent</h2>
+            <% @pending_friends_sent.each_slice(4) do |four_friends| %>
+              <div class="row">
+                <% four_friends.each do |user| %>
+                  <% if user.id != current_user.id %>
+                    <div class="col-md-3">
+                      <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
+                        <div class="front">
+                          <div class="box1 box-default">
+                            <div class="box-icon-title">
+                              <img class="img-responsive" src="<%= user.avatar %>" alt="" />
+                              <h2><%= user.char_name %></h2>
+                              <small>Lv. <%= user.level  %> Hero</small>
+                            </div>
+                          </div>
+                        </div>
+        
+                        <div class="back">
+                          <div class="box2 box-default">
+                            <h4 class="nomargin"><%= user.char_name %></h4>
+                            <small>Lv. <%= user.level  %> Hero</small>
+                            <hr />
+                                <p>Endurance: <%= user.endurance %></p>
+                                <p>Speed: <%= user.speed %></p>
+                                <p>Mental: <%= user.mental %></p>
+                            <hr />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
+
+      <% if @pending_friends_received.length != 0 %>
+        <section>
+          <div class="container">
+          <h2>Friend requests received</h2>
+            <% @pending_friends_received.each_slice(4) do |four_friends| %>
+              <div class="row">
+                <% four_friends.each do |user| %>
+                  <% if user.id != current_user.id %>
+                    <div class="col-md-3">
+                      <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
+                        <div class="front">
+                          <div class="box1 box-default">
+                            <div class="box-icon-title">
+                              <img class="img-responsive" src="<%= user.avatar %>" alt="" />
+                              <h2><%= user.char_name %></h2>
+                              <small>Lv. <%= user.level  %> Hero</small>
+                            </div>
+                          </div>
+                        </div>
+        
+                        <div class="back">
+                          <div class="box2 box-default">
+                            <h4 class="nomargin"><%= user.char_name %></h4>
+                            <small>Lv. <%= user.level  %> Hero</small>
+                            <hr />
+                                <p>Endurance: <%= user.endurance %></p>
+                                <p>Speed: <%= user.speed %></p>
+                                <p>Mental: <%= user.mental %></p>
+                            <hr />
+                            <%= form_tag "/friends/#{user.id}", method: :patch do %>
+                              <%= radio_button_tag :choice, 1 %>
+                              <%= label_tag :choice_accept, "Accept" %>
+                              <%= radio_button_tag :choice, 2 %>
+                              <%= label_tag :choice_decline, "Decline" %>
+                              <%= submit_tag "Submit", class: "btn btn-primary" %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
+      <!-- / -->
+
+
+      <!-- CALLOUT -->
+      <div class="callout callout-theme-color">
+        <div class="container">
+
+          <div class="row">
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /CALLOUT -->

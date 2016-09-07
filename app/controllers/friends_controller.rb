@@ -1,5 +1,6 @@
 class FriendsController < ApplicationController
   def index
+
     accepted_friendships_1 = current_user.friendships.where(status_code: 1)
     accepted_friendships_2 = current_user.inverse_friendships.where(status_code: 1)
     total_accepted_friendships = accepted_friendships_1 + accepted_friendships_2
@@ -34,6 +35,7 @@ class FriendsController < ApplicationController
         @pending_friends_received << friend
       end
     end
+
     render 'index.html.erb'
   end
 
@@ -70,6 +72,11 @@ class FriendsController < ApplicationController
     end
     friendship = Friendship.find_by(user_id: id_1, friend_id: id_2)
     friendship.update(status_code: params[:choice])
-    redirect_to "/"
+    if params[:choice] == 1
+      flash[:success] = "Friend added"
+    else
+      flash[:danger] = "Friend declined..."
+    end
+    redirect_to "/friends"
   end
 end
