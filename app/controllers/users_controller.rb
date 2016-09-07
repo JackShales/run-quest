@@ -98,6 +98,7 @@ class UsersController < ApplicationController
         duration: activity["duration"],
         calories: activity["total_calories"],
         quest_id: quest.id,
+        uri: activity["uri"],
         user_id: current_user.id
       )
     end

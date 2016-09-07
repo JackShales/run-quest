@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   def index
-    @activities = current_user.activities
+    @activities = current_user.activities.order(start_time: :desc)
     render 'index.html.erb'
   end
 
@@ -25,8 +25,7 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find_by(id: params[:id])
     @url = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}&callback=initMap"
-    activity_data = Unirest.get("http://api.runkeeper.com#{@activity.uri}&token_type=#{current_user.token_type}&access_token=#{current_user.access_token}").body
-    @activity_gps_data = activity_data["path"]
+    @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
     render 'show.html.erb'
   end
 

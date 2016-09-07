@@ -11,8 +11,14 @@
       <p><a href="/">Return Home</a></p>
     </div>
     <div class="col-md-6">
-      <div id="map" class="img-rounded"></div>
+    <% if @activity.uri %>
+      <div id="map"></div>
+    <% else %>
+      <img class="image-bw" src="/assets/images/runkeeper.png">
+      <p><a href="<%= @auth %>">Track with RunKeeper for Map Data</a></p>
+    <% end %>
     </div>
+    
   </div>
 </div>
 
@@ -72,8 +78,7 @@
     tempObject.lng = inputObject.longitude;
     coordinateAry.push(tempObject);
   }
-
-  
 </script>
+
 
 <script src=<%= @url %> async defer></script>
