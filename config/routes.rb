@@ -6,6 +6,15 @@ Rails.application.routes.draw do
   get '/users/:id/' => 'users#show'
   get '/authorize' => 'users#authorize'
   # quest routes
+
+  get '/inbox/pending' => 'quests#in_pending'
+  get '/inbox/active' => 'quests#in_active'
+  get 'inbox/complete' => 'quests#in_complete'
+
+  get '/outbox/pending' => 'quests#out_pending'
+  get '/outbox/active' => 'quests#out_active'
+  get 'outbox/complete' => 'quests#out_complete'
+
   get '/quests' => 'quests#index'
   # get '/quests/new' => 'quests#new'
   post '/quests' => 'quests#create'

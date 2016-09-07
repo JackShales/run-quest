@@ -2,6 +2,7 @@ class QuestsController < ApplicationController
   def index
     my_quests = Quest.where(assignee_id: current_user.id)
     my_assigned_quests = Quest.where(assigner_id: current_user.id)
+    @quests = my_quests.order(created_at: :desc)
     @quest_inbox = my_quests.where(status_code: 0)
     @active_inbox = my_quests.where(status_code: 1)
     @declined_inbox = my_quests.where(status_code: 2)
@@ -73,5 +74,41 @@ class QuestsController < ApplicationController
       giver.update(level: giver.level_change)
     end
     redirect_to "/quests/#{quest.id}"
+  end
+
+  def in_pending
+    my_quests = Quest.where(assignee_id: current_user.id)
+    @quests = my_quests.where(status_code: 0).order(created_at: :desc)
+    render 'index.html.erb'
+  end
+
+  def in_active
+    my_quests = Quest.where(assignee_id: current_user.id)
+    @quests = my_quests.where(status_code: 1).order(deadline: :asc)
+    render 'index.html.erb'
+  end
+
+  def in_complete
+    my_quests = Quest.where(assignee_id: current_user.id)
+    @quests = my_quests.where(status_code: 4).order(created_at: :desc)
+    render 'index.html.erb'
+  end
+
+  def out_pending
+    my_assigned_quests = Quest.where(assigner_id: current_user.id)
+    @quests = my_assigned_quests.where(status_code: 0).order(created_at: :desc)
+    render 'index.html.erb'
+  end
+
+  def out_active
+    my_assigned_quests = Quest.where(assigner_id: current_user.id)
+    @quests = my_assigned_quests.where(status_code: 1).order(deadline: :asc)
+    render 'index.html.erb'
+  end
+
+  def out_complete
+    my_assigned_quests = Quest.where(assigner_id: current_user.id)
+    @quests = my_assigned_quests.where(status_code: 4).order(created_at: :desc)
+    render 'index.html.erb'
   end
 end

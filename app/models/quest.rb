@@ -16,7 +16,7 @@ class Quest < ApplicationRecord
   end
 
   def status
-    statuses = ["awaiting response", "active", "declined", "cancelled", "complete"]
+    statuses = ["pending", "active", "declined", "cancelled", "complete"]
     statuses[status_code]
   end
 
