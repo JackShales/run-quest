@@ -12,11 +12,11 @@
           <%= datetime_local_field :activity, :end_time, class: "form-control" %>
         </div>
         <div>
-          <%= label_tag :distance %>
-          <%= text_field_tag :distance, "0", class: "form-control" %>
+          <%= label_tag :distance, "Distance (m)" %>
+          <%= text_field_tag :distance, "0", class: "form-control", readonly: true %>
         </div>
         <div>
-          <%= label_tag :weight %>
+          <%= label_tag :weight, "User weight (for calorie estimation)" %>
           <%= number_field :user, :weight, in: 75.0..400.0, step: 0.5, class: "form-control" %>
         </div>
         <br>
@@ -27,7 +27,7 @@
     <% end %>
   </div>
   <div class="col-md-8">
-  <div id="map"></div>
+  <div id="map" onclick="showDistance()"></div>
   </div>
 </div>
 
@@ -41,6 +41,7 @@
   var runPathCoordinatesManual = [];
   var pathLatLngAry = [];
   var distanceCounter = 0;
+  var distanceField = document.getElementById("distance");
 
 
   function initMap() {
@@ -92,7 +93,12 @@
   function findDistance(input_1, input_2) {
      // console.log(google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2));
      distanceCounter = distanceCounter + google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2);
-     console.log(distanceCounter);
+     // console.log(distanceCounter);
+  }
+
+  function showDistance() {
+    distanceField.value = distanceCounter;
+    console.log(distanceCounter);
   }
 
   // function calcDistance(inputAryOfObjects) {
