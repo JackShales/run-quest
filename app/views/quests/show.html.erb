@@ -50,28 +50,6 @@
             <div class="blog-post-item" >
               
 
-              <!-- carousel -->
-              <div class="flexslider" data-arrowNav="false" data-slideshowSpeed="3000">
-                <ul class="slides">
-                
-                  <!-- Slide 1 -->
-                  <li>
-                    <a href="#">
-                      <img class="img-responsive" src="/assets/images/demo/720x400/1-min.jpg" width="600" height="399" alt="">
-                    </a>
-                  </li>
-                  
-                  <!-- Slide 2 -->
-                  <li>
-                    <a href="#">
-                      <img class="img-responsive" src="/assets/images/demo/720x400/2-min.jpg" width="600" height="399" alt="">
-                    </a>
-                  </li>
-
-                </ul>
-              </div>
-              <!-- /carousel -->
-
               <h2><a href="/quests/<%= @quest.id %>"><%= @quest.assignee.char_name %>: <%= @quest.name %></a></h2>
 
               <ul class="blog-post-info list-inline">
@@ -111,11 +89,17 @@
               <% if @quest.activities.length != 0 %>
                 <h3>Quest Activities</h3>
                 <% @quest_activities.each do |activity| %>
-                  <p><strong>Run on <%= activity.friendly_start_time %></strong></p>
-                  <p><%= activity.distance_in_miles %> miles, duration of <%= activity.friendly_duration %>, average pace of <%= activity.avg_pace %>, <%= activity.calories %> calories burned</p>
+                <div class="box-light col-md-3">
+                  <p><strong><%= activity.friendly_start_time %></strong></p>
+                  <p><strong><%= activity.distance_in_miles %></strong> miles</p>
+                  <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
+                  <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
+                  <p><strong><%= activity.calories %></strong> calories burned</p>                
+                </div>
                 <% end %>
               <% end %>
-
+              
+              <% if @quest.status_code == 1 %>
               <% if @show_activities %>
                 <% if @quest.assignee_id == current_user.id %>
                   <% if current_user.access_token %>
@@ -134,6 +118,7 @@
                     <% end %>
                   <% end %>
                 <% end %>
+              <% end %>
               <% end %>
               </div>
               

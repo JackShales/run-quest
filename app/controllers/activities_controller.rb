@@ -37,5 +37,12 @@ class ActivitiesController < ApplicationController
   end
 
   def new
+    @url = "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAP_KEY']}&callback=initMap&libraries=geometry"
+    render 'new.html.erb'
+  end
+
+  def create_manual
+    flash[:success] = "Activity created"
+    redirect_to "/activities"
   end
 end

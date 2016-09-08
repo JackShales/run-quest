@@ -16,114 +16,84 @@
           .shadow-before-3  = shadow 3 header top
           .shadow-after-3   = shadow 3 header bottom
       -->
-<div ng-app="app">
-  <div ng-controller="questCtrl" ng-init="setup">
-      <section class="page-header page-header-xs">
-        <div class="container">
-
-          <h1>My Quests</h1>
-
-          <!-- breadcrumbs -->
-          
-          <ol class="breadcrumb">
-            <li class="active">INBOX</li>
-            <li><a href="/inbox/pending">Pending</a></li>
-            <li><a href="/inbox/active">Active</a></li>
-            <li><a href="/inbox/complete">Completed</a></li>
-            <li class="active">OUTBOX</li>
-            <li><a href="/outbox/pending">Pending</a></li>
-            <li><a href="/outbox/active">Active</a></li>
-            <li><a href="/outbox/complete">Completed</a></li>
-          </ol><!-- /breadcrumbs -->
-
-        </div>
-      </section>
+<section class="page-header page-header-xs">
+  <div class="container">
+    <h1>Quest Log</h1>
+    <!-- breadcrumbs -->         
+    <ol class="breadcrumb">
+      <li class="active">INBOX</li>
+      <li><a href="/inbox/pending">Pending</a></li>
+      <li><a href="/inbox/active">Active</a></li>
+      <li><a href="/inbox/complete">Completed</a></li>
+      <li class="active">OUTBOX</li>
+      <li><a href="/outbox/pending">Pending</a></li>
+      <li><a href="/outbox/active">Active</a></li>
+      <li><a href="/outbox/complete">Completed</a></li>
+    </ol><!-- /breadcrumbs -->
+  </div>
+</section>
       <!-- /PAGE HEADER -->
 
 
 
 
       <!-- -->
-      <section>
-        <div class="container">
-
+<section>
+  <div class="container">
+    <div class="col-md-9 col-sm-9">
+      <div class="timeline timeline-inverse"><!-- .timeline-inverse = right position [left on RTL] -->
+      <div class="timeline-hline"><!-- horizontal line --></div>
             <!-- POST ITEM -->
-          <% @quests.each do |quest| %>
+        <% @quests.each do |quest| %>
 
-            <div class="blog-post-item" >
-              
-
-              <!-- carousel -->
-              <div class="flexslider" data-arrowNav="false" data-slideshowSpeed="3000">
-                <ul class="slides">
-                
-                  <!-- Slide 1 -->
-                  <li>
-                    <a href="#">
-                      <img class="img-responsive" src="/assets/images/demo/720x400/1-min.jpg" width="600" height="399" alt="">
-                    </a>
-                  </li>
-                  
-                  <!-- Slide 2 -->
-                  <li>
-                    <a href="#">
-                      <img class="img-responsive" src="/assets/images/demo/720x400/2-min.jpg" width="600" height="399" alt="">
-                    </a>
-                  </li>
-
-                </ul>
+          <div class="blog-post-item" >
+          <!-- timeline entry -->
+            <div class="timeline-entry"><!-- .rounded = entry -->
+              <%= quest.creation_day %><span><%= quest.creation_month %></span>
+                <div class="timeline-vline"><!-- vertical line --></div>
               </div>
-              <!-- /carousel -->
+          <!-- /timeline entry -->
+            <h2><a href="/quests/<%= quest.id %>"><%= quest.name %></a></h2>
+            <ul class="blog-post-info list-inline">
+              <li>
+                <a href="#">
+                  <i class="fa fa-clock-o"></i> 
+                  <span class="font-lato">DEADLINE: <%= quest.deadline || "n/a" %></span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-check"></i> 
+                  <span class="font-lato"><%= quest.status.capitalize %></span>
+                </a>
+              </li>
+              <li>
+                <% if quest.quest_type.capitalize == "Endurance" %>
+                  <i class="fa fa-road"></i>
+                <% elsif quest.quest_type.capitalize == "Speed" %>
+                  <i class="fa fa-bolt"></i>
+                <% else %>
+                  <i class="fa fa-flask"></i>
+                <% end %> 
+                <a class="category" href="#">
+                  <span class="font-lato"><%= quest.quest_type.capitalize %></span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-user"></i> 
+                  <span class="font-lato">Assigned by <%= quest.assigner.char_name %></span>
+                </a>
+              </li>
+            </ul>
+            <p><%= quest.notes %></p>
+          </div>  
+        <% end %>          
+      </div>
+    </div>
+  </div>
+</section>
 
-              <h2><a href="/quests/<%= quest.id %>"><%= quest.name %></a></h2>
-
-              <ul class="blog-post-info list-inline">
-                <li>
-                  <a href="#">
-                    <i class="fa fa-clock-o"></i> 
-                    <span class="font-lato">DEADLINE: <%= quest.deadline || "n/a" %></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-check"></i> 
-                    <span class="font-lato"><%= quest.status.capitalize %></span>
-                  </a>
-                </li>
-                <li>
-                  <% if quest.quest_type.capitalize == "Endurance" %>
-                    <i class="fa fa-road"></i>
-                  <% elsif quest.quest_type.capitalize == "Speed" %>
-                    <i class="fa fa-bolt"></i>
-                  <% else %>
-                    <i class="fa fa-flask"></i>
-                  <% end %> 
-                  <a class="category" href="#">
-                    <span class="font-lato"><%= quest.quest_type.capitalize %></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-user"></i> 
-                    <span class="font-lato">Assigned by <%= quest.assigner.char_name %></span>
-                  </a>
-                </li>
-              </ul>
-              <p><%= quest.notes %></p>
-              </div>
-              
-          <% end %>
-
-            </div>
-            <!-- /POST ITEM -->
-          
-        </div>
-          <!-- /PAGINATION -->
-
-
-        </div>
-      </section>
-</div>
       <!-- / -->
 
 

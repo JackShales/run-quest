@@ -26,4 +26,9 @@ class Activity < ApplicationRecord
     pace_seconds = (raw_pace - pace_minutes) * 60
     format("%02d:%02d", pace_minutes, pace_seconds)
   end
+
+  def calc_xp
+    cal_xp = calories / 5
+    cal_xp
+  end
 end

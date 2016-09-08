@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="col-md-6">
+    <%= form_tag '/activities/manual', class: "box-light margin-top-20", method: :post do %>
+      <div class="box-inner">
+        <h4 class="uppercase">Manual Activity Entry</h4>
+        <div>
+          <%= label_tag :start_time %>
+          <%= datetime_local_field :activity, :start_time %>
+        </div>
+        <div>
+          <%= label_tag :end_time %>
+          <%= datetime_local_field :activity, :end_time %>
+        </div>
+        <div>
+          <%= submit_tag "Submit Activity", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+  <div id="map"></div>
+  </div>
+</div>
+
+<script>
+  var map;
+  var latitude = 41.881;
+  var longitude = -87.623;
+  var runPathCoordinatesManual = [];
+  var pathLatLngAry = [];
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: latitude, lng: longitude},
+      zoom: 12
+    });
+
+    google.maps.event.addListener(map, 'click', function(event) {
+      addMarker(event.latLng, map);
+    });
+  }
+
+  function addMarker(location, map) {
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+    var markerObject = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+    var markerLatLng = new google.maps.LatLng(markerObject.lat, markerObject.lng);
+    runPathCoordinatesManual.push(markerObject);
+    pathLatLngAry.push(markerLatLng);
+    var latLngIndex_1 = pathLatLngAry.length - 1;
+    var latLngIndex_2 = pathLatLngAry.length;
+    console.log(latLngIndex_1);
+    var runPathManual = new google.maps.Polyline({
+      path: runPathCoordinatesManual,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.5,
+      strokeWeight: 2
+    });
+    runPathManual.setMap(map);
+    console.log(google.maps.geometry.spherical.computeDistanceBetween(pathLatLngAry[latLngIndex_1], pathLatLngAry[latLngIndex_2]));
+
+    // function() {
+    //    console.log(google.maps.geometry.spherical.computeDistanceBetween(pathLatLngAry[pathLatLngAry.length - 1], pathLatLngAry[pathLatLngAry.length]));
+    // }
+   
+
+    // if (runPathCoordinatesManual.length > 1) {
+    //   console.log(
+    //     google.maps.geometry.spherical.computeDistanceBetween(runPathCoordinatesManual[0], runPathCoordinatesManual[1])
+    //   );
+    // }
+  }
+
+  google.maps.event.addDomListener(window, 'load', initMap);
+
+  // function calcDistance(inputAryOfObjects) {
+  //   inputAryOfObjects.forEach(function(){
+  //     var index_1 = 0
+  //     var index_2 = 1
+  //   });
+  // }
+
+
+  
+</script>
+
+
+<script src=<%= @url %> async defer></script>

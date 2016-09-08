@@ -29,4 +29,12 @@ class Quest < ApplicationRecord
     total_xp = cal_xp + base_xp
     total_xp
   end
+
+  def creation_month
+    created_at.strftime("%b '%y")
+  end
+
+  def creation_day
+    created_at.strftime("%e")
+  end
 end

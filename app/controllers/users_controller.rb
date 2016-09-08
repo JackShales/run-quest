@@ -101,6 +101,11 @@ class UsersController < ApplicationController
         uri: activity["uri"],
         user_id: current_user.id
       )
+
+      current_user.update(experience: current_user.experience + (activity["total_calories"] / 5))
+      if current_user.level_up?
+        current_user.update(level: current_user.level_change)
+      end
     end
     flash[:success] = 'Successfully linked RunKeeper Account!'
     redirect_to '/activities'

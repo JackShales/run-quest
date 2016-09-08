@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/activities' => 'activities#index'
   get '/activities/new' => 'activities#new'
   post '/activities' => 'activities#create'
+  post '/activities/manual' => 'activities#create_manual'
   get '/activities/:id/' => 'activities#show'
   get '/activities/:id/edit' => 'activities#edit'
   patch '/activities/:id/' => 'activities#update'
