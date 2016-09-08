@@ -24,10 +24,15 @@
 
 <script>
   var map;
+  var marker;
+  var markerObject;
+  var markerLatLng;
+  var markerIndex = 0;
   var latitude = 41.881;
   var longitude = -87.623;
   var runPathCoordinatesManual = [];
   var pathLatLngAry = [];
+
 
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -37,21 +42,28 @@
 
     google.maps.event.addListener(map, 'click', function(event) {
       addMarker(event.latLng, map);
+      if (pathLatLngAry.length > 1) {
+        findDistance(event.latLng, pathLatLngAry[pathLatLngAry.length - 2]);
+      }
     });
   }
 
   function addMarker(location, map) {
-    var marker = new google.maps.Marker({
+    marker = new google.maps.Marker({
       position: location,
       map: map
     });
-    var markerObject = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-    var markerLatLng = new google.maps.LatLng(markerObject.lat, markerObject.lng);
+
+    markerObject = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+
+    markerLatLng = new google.maps.LatLng(markerObject.lat, markerObject.lng);
+
     runPathCoordinatesManual.push(markerObject);
     pathLatLngAry.push(markerLatLng);
-    var latLngIndex_1 = pathLatLngAry.length - 1;
-    var latLngIndex_2 = pathLatLngAry.length;
-    console.log(latLngIndex_1);
+    
+
+    // findDistance(markerLatLang, pathLatLngAry[pathLatLngAry.length - 1]);
+
     var runPathManual = new google.maps.Polyline({
       path: runPathCoordinatesManual,
       geodesic: true,
@@ -60,21 +72,17 @@
       strokeWeight: 2
     });
     runPathManual.setMap(map);
-    console.log(google.maps.geometry.spherical.computeDistanceBetween(pathLatLngAry[latLngIndex_1], pathLatLngAry[latLngIndex_2]));
-
-    // function() {
-    //    console.log(google.maps.geometry.spherical.computeDistanceBetween(pathLatLngAry[pathLatLngAry.length - 1], pathLatLngAry[pathLatLngAry.length]));
-    // }
-   
-
-    // if (runPathCoordinatesManual.length > 1) {
-    //   console.log(
-    //     google.maps.geometry.spherical.computeDistanceBetween(runPathCoordinatesManual[0], runPathCoordinatesManual[1])
-    //   );
-    // }
   }
 
+    
+
+  
+
   google.maps.event.addDomListener(window, 'load', initMap);
+
+  function findDistance(input_1, input_2) {
+     console.log(google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2));
+  }
 
   // function calcDistance(inputAryOfObjects) {
   //   inputAryOfObjects.forEach(function(){
