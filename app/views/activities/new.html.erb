@@ -1,23 +1,32 @@
 <div class="container">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <%= form_tag '/activities/manual', class: "box-light margin-top-20", method: :post do %>
       <div class="box-inner">
         <h4 class="uppercase">Manual Activity Entry</h4>
         <div>
           <%= label_tag :start_time %>
-          <%= datetime_local_field :activity, :start_time %>
+          <%= datetime_local_field :activity, :start_time, class: "form-control" %>
         </div>
         <div>
           <%= label_tag :end_time %>
-          <%= datetime_local_field :activity, :end_time %>
+          <%= datetime_local_field :activity, :end_time, class: "form-control" %>
         </div>
+        <div>
+          <%= label_tag :distance %>
+          <%= text_field_tag :distance, "0", class: "form-control" %>
+        </div>
+        <div>
+          <%= label_tag :weight %>
+          <%= number_field :user, :weight, in: 75.0..400.0, step: 0.5, class: "form-control" %>
+        </div>
+        <br>
         <div>
           <%= submit_tag "Submit Activity", class: "btn btn-primary" %>
         </div>
       </div>
     <% end %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-8">
   <div id="map"></div>
   </div>
 </div>
@@ -27,11 +36,11 @@
   var marker;
   var markerObject;
   var markerLatLng;
-  var markerIndex = 0;
   var latitude = 41.881;
   var longitude = -87.623;
   var runPathCoordinatesManual = [];
   var pathLatLngAry = [];
+  var distanceCounter = 0;
 
 
   function initMap() {
@@ -81,7 +90,9 @@
   google.maps.event.addDomListener(window, 'load', initMap);
 
   function findDistance(input_1, input_2) {
-     console.log(google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2));
+     // console.log(google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2));
+     distanceCounter = distanceCounter + google.maps.geometry.spherical.computeDistanceBetween(input_1, input_2);
+     console.log(distanceCounter);
   }
 
   // function calcDistance(inputAryOfObjects) {
