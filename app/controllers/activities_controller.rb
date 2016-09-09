@@ -42,29 +42,31 @@ class ActivitiesController < ApplicationController
   end
 
   def create_manual
-    distance_miles = (params[:distance] * 0.000621371).round(2)
-    calories = distance_miles * (.63 * params[:weight])
-    duration = params[:end_time] - params[:start_time]
+    distance_miles = (params[:distance].to_f * 0.000621371).round(2)
+    calories = distance_miles * (0.75 * params[:activity][:weight].to_f)
+    duration = ((params[:activity][:end_time].to_datetime - params[:activity][:start_time].to_datetime) * 24 * 60 * 60).to_i
     activity = Activity.new(
       distance: params[:distance],
-      calories: calories,
-      start_time: params[:activity][:start_time],
+      calories: calories.to_i,
+      start_time: params[:activity][:start_time].to_datetime,
       duration: duration,
-      start_time: params[:start_time],
       user_id: current_user.id
     )
     if activity.save
-      @datapoints = params["data"]
-      @datapoints.each do |datapoint|
+      # datapoints_string = params[:data_points].tr!('"', '')
+      @data_points = eval(params[:data_points])
+      @data_points.each do |datapoint|
         Datapoint.create(
           activity_id: activity.id,
-          latitude: datapoint["lat"],
-          longitude: datapoint["lng"]
+          latitude: datapoint[:lat],
+          longitude: datapoint[:lng]
         )
       end
+      flash[:success] = "Activity created"
+      redirect_to "/activities/#{activity.id}"
+    else
+      flash[:danger] = "Error in saving activity"
+      redirect_to "/activities/new"
     end
-    
-    flash[:success] = "Activity created"
-    redirect_to "/activities"
   end
 end

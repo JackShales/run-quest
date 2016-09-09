@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="col-md-6">
-    <% if @activity.uri %>
+    <% if @activity.uri || @activity.datapoints %>
       <div id="map"></div>
     <% else %>
       <img class="image-bw" src="/assets/images/runkeeper.png">
@@ -22,63 +22,125 @@
   </div>
 </div>
 
-<script>
-  var map;
-  var latitude = 41.881;
-  var longitude = -87.623;
-  var gpsPath;
-  var coordinateAry = [];
+<% if @activity.uri %>
+  <script>
+    var map;
+    var latitude = 41.881;
+    var longitude = -87.623;
+    var gpsPath;
+    var coordinateAry = [];
+  
+    function initMap() {
+      $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
+        gpsPath = data.path;
+        gpsPath.forEach(setCoordinates);
+  
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: coordinateAry[0].lat, lng: coordinateAry[0].lng},
+          zoom: 16
+        });
+  
+        var runPath = new google.maps.Polyline({
+          path: coordinateAry,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.5,
+          strokeWeight: 2
+        });
+        runPath.setMap(map);
+        var startMarker = new google.maps.Marker({
+          position: coordinateAry[0],
+          map: map,
+          title: 'Start'
+        });
+        var endMarker = new google.maps.Marker({
+          position: coordinateAry[(coordinateAry.length - 1)],
+          map: map,
+          title: 'Finish'
+        });
+        var infoWindowStart = new google.maps.InfoWindow({
+          content: "Start"
+        });
+        var infoWindowFinish = new google.maps.InfoWindow({
+          content: "Finish"
+        });
+        startMarker.addListener('click', function() {
+          infoWindowStart.open(map, startMarker);
+        });
+        endMarker.addListener('click', function() {
+          infoWindowFinish.open(map, endMarker);
+        });
+      });
+    }
+  
+    function setCoordinates(inputObject) {
+      var tempObject = {};
+      tempObject.lat = inputObject.latitude;
+      tempObject.lng = inputObject.longitude;
+      coordinateAry.push(tempObject);
+    }
+  </script>
+<% end %>
 
-  function initMap() {
-    $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
-      gpsPath = data.path;
-      gpsPath.forEach(setCoordinates);
-
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: coordinateAry[0].lat, lng: coordinateAry[0].lng},
-        zoom: 16
-      });
-
-      var runPath = new google.maps.Polyline({
-        path: coordinateAry,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.5,
-        strokeWeight: 2
-      });
-      runPath.setMap(map);
-      var startMarker = new google.maps.Marker({
-        position: coordinateAry[0],
-        map: map,
-        title: 'Start'
-      });
-      var endMarker = new google.maps.Marker({
-        position: coordinateAry[(coordinateAry.length - 1)],
-        map: map,
-        title: 'Finish'
-      });
-      var infoWindowStart = new google.maps.InfoWindow({
-        content: "Start"
-      });
-      var infoWindowFinish = new google.maps.InfoWindow({
-        content: "Finish"
-      });
-      startMarker.addListener('click', function() {
-        infoWindowStart.open(map, startMarker);
-      });
-      endMarker.addListener('click', function() {
-        infoWindowFinish.open(map, endMarker);
-      });
-    });
-  }
-
-  function setCoordinates(inputObject) {
-    var tempObject = {};
-    tempObject.lat = inputObject.latitude;
-    tempObject.lng = inputObject.longitude;
-    coordinateAry.push(tempObject);
-  }
-</script>
+<% if @activity.datapoints %>
+  <script>
+      var map;
+      var latitude = 41.881;
+      var longitude = -87.623;
+      var gpsPath;
+      var coordinateAry = [];
+    
+      function initMap() {
+        $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
+          gpsPath = data.path;
+          gpsPath.forEach(setCoordinates);
+    
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: coordinateAry[0].lat, lng: coordinateAry[0].lng},
+            zoom: 16
+          });
+    
+          var runPath = new google.maps.Polyline({
+            path: coordinateAry,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.5,
+            strokeWeight: 2
+          });
+          runPath.setMap(map);
+          var startMarker = new google.maps.Marker({
+            position: coordinateAry[0],
+            map: map,
+            title: 'Start'
+          });
+          var endMarker = new google.maps.Marker({
+            position: coordinateAry[(coordinateAry.length - 1)],
+            map: map,
+            title: 'Finish'
+          });
+          var infoWindowStart = new google.maps.InfoWindow({
+            content: "Start"
+          });
+          var infoWindowFinish = new google.maps.InfoWindow({
+            content: "Finish"
+          });
+          startMarker.addListener('click', function() {
+            infoWindowStart.open(map, startMarker);
+          });
+          endMarker.addListener('click', function() {
+            infoWindowFinish.open(map, endMarker);
+          });
+        });
+      }
+    
+      function setCoordinates(inputObject) {
+        var tempObject = {};
+        tempObject.lat = inputObject.latitude;
+        tempObject.lng = inputObject.longitude;
+        coordinateAry.push(tempObject);
+      }
+  </script>
+<% end %>
 
 
 <script src=<%= @url %> async defer></script>
