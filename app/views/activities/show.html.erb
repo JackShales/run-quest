@@ -1,26 +1,38 @@
-<div class="container">
-  <div class= row>
-    <div class="col-md-6">
-      <h2><%= @activity.friendly_start_time %></h2>
-      <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-        <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-clock-o"></i> <strong> DURATION</strong>: (h:m:s) <%= @activity.friendly_duration %> </a></li>
-        <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-fire"></i> <strong> CALORIES BURNED</strong>: <%= @activity.calories %></a></li>
-        <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-arrows-h"></i> <strong> DISTANCE</strong>: <%= @activity.distance_in_miles %> miles</a></li>
-        <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-tachometer"></i> <strong> AVERAGE PACE</strong>: (m:s) <%= @activity.avg_pace %>/mile </a></li>
-        <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-star-o"></i> <strong> XP VALUE</strong>: <%= @activity.calc_xp %> pts</a></li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-    <% if @activity.uri || @activity.datapoints.length > 0 %>
-      <div id="map"></div>
-    <% else %>
-      <img class="image-bw" src="/assets/images/runkeeper.png">
-      <p><a href="<%= @auth %>">Track with RunKeeper for Map Data</a></p>
-    <% end %>
-    </div>
+<section class="page-header page-header-xs">
+  <div class="container">
+    <h1>ACTIVITY DETAIL</h1>
+    <!-- breadcrumbs -->
     
+    <ol class="breadcrumb">
+      <li><a href="/activities/new">Enter Manual Activity</a></li>
+    </ol><!-- /breadcrumbs -->
   </div>
-</div>
+</section>
+<section>
+  <div class="container">
+    <div class= row>
+      <div class="col-md-6">
+        <h2><%= @activity.friendly_start_time %></h2>
+        <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
+          <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-clock-o"></i> <strong> DURATION</strong>: (h:m:s) <%= @activity.friendly_duration %> </a></li>
+          <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-fire"></i> <strong> CALORIES BURNED</strong>: <%= @activity.calories %></a></li>
+          <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-arrows-h"></i> <strong> DISTANCE</strong>: <%= @activity.distance_in_miles %> miles</a></li>
+          <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-tachometer"></i> <strong> AVERAGE PACE</strong>: (m:s) <%= @activity.avg_pace %>/mile </a></li>
+          <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-star-o"></i> <strong> XP VALUE</strong>: <%= @activity.calc_xp %> pts</a></li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+      <% if @activity.uri || @activity.datapoints.length > 0 %>
+        <div id="map"></div>
+      <% else %>
+        <img class="image-bw" src="/assets/images/runkeeper.png">
+        <p><a href="<%= @auth %>">Track with RunKeeper for Map Data</a></p>
+      <% end %>
+      </div>
+      
+    </div>
+  </div>
+</section>
 
 <% if @activity.uri %>
   <script>
