@@ -44,6 +44,10 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+  # Datapoints
+
+  post '/datapoints' => 'datapoints#create'
+
   # API routes
   namespace :api do
     namespace :v1 do

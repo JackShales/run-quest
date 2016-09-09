@@ -42,6 +42,28 @@ class ActivitiesController < ApplicationController
   end
 
   def create_manual
+    distance_miles = (params[:distance] * 0.000621371).round(2)
+    calories = distance_miles * (.63 * params[:weight])
+    duration = params[:end_time] - params[:start_time]
+    activity = Activity.new(
+      distance: params[:distance],
+      calories: calories,
+      start_time: params[:activity][:start_time],
+      duration: duration,
+      start_time: params[:start_time],
+      user_id: current_user.id
+    )
+    if activity.save
+      @datapoints = params["data"]
+      @datapoints.each do |datapoint|
+        Datapoint.create(
+          activity_id: activity.id,
+          latitude: datapoint["lat"],
+          longitude: datapoint["lng"]
+        )
+      end
+    end
+    
     flash[:success] = "Activity created"
     redirect_to "/activities"
   end

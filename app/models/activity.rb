@@ -1,6 +1,7 @@
 class Activity < ApplicationRecord
   belongs_to :quest
   belongs_to :user
+  has_many :datapoints
 
   validates :start_time, uniqueness: true
 

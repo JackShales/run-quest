@@ -17,8 +17,9 @@
         </div>
         <div>
           <%= label_tag :weight, "User weight (for calorie estimation)" %>
-          <%= number_field :user, :weight, in: 75.0..400.0, step: 0.5, class: "form-control" %>
+          <%= number_field :activity, :weight, in: 75.0..400.0, step: 0.5, class: "form-control" %>
         </div>
+          <%= hidden_field_tag :data_points, "" %>
         <br>
         <div>
           <%= submit_tag "Submit Activity", class: "btn btn-primary" %>
@@ -27,7 +28,7 @@
     <% end %>
   </div>
   <div class="col-md-8">
-  <div id="map" onclick="showDistance()"></div>
+  <div id="map" onclick="showDistance();postDataPoints();"></div>
   </div>
 </div>
 
@@ -42,6 +43,7 @@
   var pathLatLngAry = [];
   var distanceCounter = 0;
   var distanceField = document.getElementById("distance");
+  var dataPoints = document.getElementById("data_points");
 
 
   function initMap() {
@@ -99,6 +101,12 @@
   function showDistance() {
     distanceField.value = distanceCounter;
     console.log(distanceCounter);
+  }
+
+  function postDataPoints() {
+    // runPathCoordinatesManual.forEach   
+    dataPoints.value = JSON.stringify(runPathCoordinatesManual);
+    // console.log(JSON.stringify(runPathCoordinatesManual));
   }
 
   // function calcDistance(inputAryOfObjects) {
