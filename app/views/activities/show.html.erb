@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="col-md-6">
-    <% if @activity.uri || @activity.datapoints %>
+    <% if @activity.uri || @activity.datapoints.length > 0 %>
       <div id="map"></div>
     <% else %>
       <img class="image-bw" src="/assets/images/runkeeper.png">
@@ -82,26 +82,26 @@
   </script>
 <% end %>
 
-<% if @activity.datapoints %>
+<% if @activity.datapoints.length > 0 %>
   <script>
       var map;
       var latitude = 41.881;
       var longitude = -87.623;
       var gpsPath;
-      var coordinateAry = [];
+      var coordinateAryManual = [];
     
       function initMap() {
-        $.get("http://api.runkeeper.com<%= @activity.uri %>?token_type=<%= current_user.token_type %>&access_token=<%= current_user.access_token %>", function(data) {
-          gpsPath = data.path;
-          gpsPath.forEach(setCoordinates);
+        $.get("/api/v1/activities/<%= @activity.id %>", function(data) {
+          gpsPath = data.dataPoints;
+          gpsPath.forEach(setCoordinatesManual);
     
           map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: coordinateAry[0].lat, lng: coordinateAry[0].lng},
+            center: {lat: coordinateAryManual[0].lat, lng: coordinateAryManual[0].lng},
             zoom: 16
           });
     
           var runPath = new google.maps.Polyline({
-            path: coordinateAry,
+            path: coordinateAryManual,
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 0.5,
@@ -109,12 +109,12 @@
           });
           runPath.setMap(map);
           var startMarker = new google.maps.Marker({
-            position: coordinateAry[0],
+            position: coordinateAryManual[0],
             map: map,
             title: 'Start'
           });
           var endMarker = new google.maps.Marker({
-            position: coordinateAry[(coordinateAry.length - 1)],
+            position: coordinateAryManual[(coordinateAryManual.length - 1)],
             map: map,
             title: 'Finish'
           });
@@ -133,11 +133,11 @@
         });
       }
     
-      function setCoordinates(inputObject) {
-        var tempObject = {};
-        tempObject.lat = inputObject.latitude;
-        tempObject.lng = inputObject.longitude;
-        coordinateAry.push(tempObject);
+      function setCoordinatesManual(inputObject) {
+        var tempObjectManual = {};
+        tempObjectManual.lat = Number(inputObject.latitude);
+        tempObjectManual.lng = Number(inputObject.longitude);
+        coordinateAryManual.push(tempObjectManual);
       }
   </script>
 <% end %>
