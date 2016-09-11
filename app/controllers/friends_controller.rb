@@ -55,11 +55,11 @@ class FriendsController < ApplicationController
       action_user_id: current_user.id
     )
     if friendship.save
-      flash = "Request sent"
+      flash[:success] = "Request sent"
     else
       puts friendship.errors.full_messages
     end
-    redirect_to "/"
+    redirect_to "/users"
   end
 
   def update
@@ -72,7 +72,7 @@ class FriendsController < ApplicationController
     end
     friendship = Friendship.find_by(user_id: id_1, friend_id: id_2)
     friendship.update(status_code: params[:choice])
-    if params[:choice] == 1
+    if friendship.status_code == 1
       flash[:success] = "Friend added"
     else
       flash[:danger] = "Friend declined..."

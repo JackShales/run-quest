@@ -3,9 +3,33 @@ class UsersController < ApplicationController
     if current_user
       @auth = "#{ENV['HEALTH_GRAPH_AUTH_END_POINT']}?client_id=#{ENV['HEALTH_GRAPH_CLIENT_ID']}&response_type=code&redirect_uri=#{ENV['REDIRECT_URI']}"
 
+      @activities = current_user.activities.order(start_time: :desc)
+
       @active_quests_num = Quest.where(assignee_id: current_user.id, status_code: 1).length
       @completed_quests_num = Quest.where(assignee_id: current_user.id, status_code: 4).length
       @total_activities_num = current_user.activities.length
+      @quest_inbox = Quest.where(assignee_id: current_user.id, status_code: 0)
+
+      pending_friendships_1 = current_user.friendships.where(status_code: 0)
+      pending_friendships_2 = current_user.inverse_friendships.where(status_code: 0)
+      pending_friendships_all = pending_friendships_1 + pending_friendships_2
+      @pending_friends_sent = []
+      @pending_friends_received = []
+      pending_friendships_all.each do |friendship|
+        if friendship.action_user_id == current_user.id && friendship.user_id == current_user.id
+          friend = User.find_by(id: friendship.friend_id)
+          @pending_friends_sent << friend
+        elsif friendship.action_user_id == current_user.id && friendship.friend_id == current_user.id
+          friend = User.find_by(id: friendship.user_id)
+          @pending_friends_sent << friend
+        elsif friendship.action_user_id != current_user.id && friendship.user_id == current_user.id
+          friend = User.find_by(id: friendship.friend_id)
+          @pending_friends_received << friend
+        else
+          friend = User.find_by(id: friendship.user_id)
+          @pending_friends_received << friend
+        end
+      end
 
       accepted_friendships_1 = current_user.friendships.where(status_code: 1)
       accepted_friendships_2 = current_user.inverse_friendships.where(status_code: 1)
@@ -35,7 +59,25 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @active_quests_num = Quest.where(assignee_id: @user.id, status_code: 1).length
     @completed_quests_num = Quest.where(assignee_id: @user.id, status_code: 4).length
+    @completed_quests = Quest.where(assignee_id: @user.id, status_code: 4)
+    @active_quests = Quest.where(assignee_id: @user.id, status_code: 1)
     @total_activities_num = @user.activities.length
+    @activities = @user.activities.order(start_time: :desc)
+
+    accepted_friendships_1 = @user.friendships.where(status_code: 1)
+    accepted_friendships_2 = @user.inverse_friendships.where(status_code: 1)
+    total_accepted_friendships = accepted_friendships_1 + accepted_friendships_2
+    @accepted_friends = []
+    total_accepted_friendships.each do |friendship|
+      if friendship.friend_id == @user.id
+        function_id = friendship.user_id
+      else
+        function_id = friendship.friend_id
+      end
+      friend = User.find_by(id: function_id)
+      @accepted_friends << friend
+    end
+
     render 'show.html.erb'
   end
 

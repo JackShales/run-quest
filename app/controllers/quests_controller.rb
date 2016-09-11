@@ -37,7 +37,7 @@ class QuestsController < ApplicationController
     @quest = Quest.find_by(id: params[:id])
     unassigned_activities = current_user.activities.where(quest_id: nil)
     @show_activities = unassigned_activities.select { |activity| activity.start_time > (@quest.deadline - 1.month) }
-    @quest_activities = current_user.activities.where(quest_id: @quest.id)
+    @quest_activities = @quest.assignee.activities.where(quest_id: @quest.id)
     @assigner = User.find_by(id: @quest.assigner_id)
     @assignee = User.find_by(id: @quest.assignee_id)
     render 'show.html.erb'
@@ -58,7 +58,16 @@ class QuestsController < ApplicationController
     if params[:choice] && params[:choice].to_i == 4
       receiver.update(experience: receiver.experience + quest.calc_xp)
       giver.update(experience: giver.experience + 50)
+      if quest.quest_type == "Mental"
+        receiver.update(mental: receiver.mental + 1)
+      elsif quest.quest_type == "Endurance"
+        receiver.update(endurance: receiver.endurance + 1)
+      elsif quest.quest_type == "Speed"
+        receiver.update(speed: receiver.speed + 1)
+      end
     end
+
+    
 
     level_bar = 0
     level_hash = {}

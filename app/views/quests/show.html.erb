@@ -50,7 +50,7 @@
             <div class="blog-post-item" >
               
 
-              <h2><a href="/quests/<%= @quest.id %>"><%= @quest.assignee.char_name %>: <%= @quest.name %></a></h2>
+              <h1><a href="/quests/<%= @quest.id %>"><%= @quest.name %></a></h1>
 
               <ul class="blog-post-info list-inline">
                 <li>
@@ -80,13 +80,14 @@
                 <li>
                   <a href="#">
                     <i class="fa fa-user"></i> 
-                    <span class="font-lato">Assigned by <%= @quest.assigner.char_name %></span>
+                    <span class="font-lato">Assigned by <%= @quest.assigner.char_name %> to <%= @quest.assignee.char_name %></span>
                   </a>
                 </li>
               </ul>
               <p>NOTES: <%= @quest.notes %></p>
 
               <% if @quest.activities.length != 0 %>
+              <div class="container">
                 <h3>Quest Activities</h3>
                 <% @quest_activities.each do |activity| %>
                 <div class="box-light col-md-3">
@@ -97,12 +98,15 @@
                   <p><strong><%= activity.calories %></strong> calories burned</p>                
                 </div>
                 <% end %>
+                </div>
+                <br>
               <% end %>
               
               <% if @quest.status_code == 1 %>
               <% if @show_activities %>
                 <% if @quest.assignee_id == current_user.id %>
                   <% if current_user.access_token %>
+                  <div class="container">
                     <h3>Link Recent Runkeeper Activities to <%= @quest.name %></h3>
                     <% @show_activities.each do |activity| %>
                       <div class="container">
@@ -116,6 +120,7 @@
                         <p><strong><%= activity.calories %></strong> calories burned</p>
                       </div>
                     <% end %>
+                    </div>
                   <% end %>
                 <% end %>
               <% end %>
@@ -124,6 +129,7 @@
               
               <% if @quest.assignee_id == current_user.id %>
                 <% if @quest.status_code == 0 %>
+                <div class="container">
                 <div class="row col-md-4">
                   <div class="form-group">
                   <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
@@ -145,10 +151,12 @@
                   <% end %>
                   </div>
                 </div>
+                </div>
                 <% end %>
               <% end %>
 
               <% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
+              <div class="container">
               <div class="row col-md-4">
                 <div class="form-group">
                   <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
@@ -161,9 +169,12 @@
                   <% end %>
                 </div>
               </div>
+              </div>
               <% end %>
+              
 
               <% if @quest.status_code == 1 && current_user.id == @quest.assigner_id %>
+              <div class="container">
               <div class="row col-md-4">
                 <div class="form-group">
                   <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
@@ -184,6 +195,7 @@
                     </div>
                   <% end %>
                 </div>
+              </div>
               </div>
               <% end %>
 

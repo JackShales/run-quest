@@ -37,4 +37,14 @@ class Quest < ApplicationRecord
   def creation_day
     created_at.strftime("%e")
   end
+
+  def icon
+    if quest_type == "Endurance"
+      "fa-road"
+    elsif quest_type == "Speed"
+      "fa-bolt"
+    elsif quest_type == "Mental"
+      "fa-flask"
+    end
+  end
 end
