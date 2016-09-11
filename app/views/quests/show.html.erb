@@ -44,139 +44,47 @@
       <!-- -->
       <section>
         <div class="container">
-
             <!-- POST ITEM -->
-
-            <div class="blog-post-item" >
-              
-
-              <h1><a href="/quests/<%= @quest.id %>"><%= @quest.name %></a></h1>
-
-              <ul class="blog-post-info list-inline">
-                <li>
-                  <a href="#">
-                    <i class="fa fa-clock-o"></i> 
-                    <span class="font-lato">DEADLINE: <%= @quest.deadline || "n/a" %></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-check"></i> 
-                    <span class="font-lato"><%= @quest.status.capitalize %></span>
-                  </a>
-                </li>
-                <li>
-                  <% if @quest.quest_type.capitalize == "Endurance" %>
-                    <i class="fa fa-road"></i>
-                  <% elsif @quest.quest_type.capitalize == "Speed" %>
-                    <i class="fa fa-bolt"></i>
-                  <% else %>
-                    <i class="fa fa-flask"></i>
-                  <% end %> 
-                  <a class="category" href="#">
-                    <span class="font-lato"><%= @quest.quest_type.capitalize %></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i class="fa fa-user"></i> 
-                    <span class="font-lato">Assigned by <%= @quest.assigner.char_name %> to <%= @quest.assignee.char_name %></span>
-                  </a>
-                </li>
-              </ul>
-              <p>NOTES: <%= @quest.notes %></p>
-
-              <% if @quest.activities.length != 0 %>
-              <div class="container">
-                <h3>Quest Activities</h3>
-                <% @quest_activities.each do |activity| %>
-                <div class="box-light col-md-3">
-                  <p><strong><%= activity.friendly_start_time %></strong></p>
-                  <p><strong><%= activity.distance_in_miles %></strong> miles</p>
-                  <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
-                  <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
-                  <p><strong><%= activity.calories %></strong> calories burned</p>                
-                </div>
-                <% end %>
-                </div>
-                <br>
+          <div class="col-md-8">
+          <div class="blog-post-item well col-md-12">
+            
+            <h1 class="text-center"><%= @quest.name %></h1>
+            <ul class="blog-post-info list-inline text-center">
+              <li>
+                  <i class="fa fa-clock-o"></i> 
+                  <span class="font-lato">DEADLINE: <%= @quest.friendly_deadline || "N/A" %></span>
+              </li>
+              <li>
+                  <i class="fa fa-check"></i> 
+                  <span class="font-lato"><%= @quest.status.capitalize %></span>
+              </li>
+              <li>
+                <% if @quest.quest_type.capitalize == "Endurance" %>
+                  <i class="fa fa-road"></i>
+                <% elsif @quest.quest_type.capitalize == "Speed" %>
+                  <i class="fa fa-bolt"></i>
+                <% else %>
+                  <i class="fa fa-flask"></i>
+                <% end %> 
+                  <span class="font-lato"><%= @quest.quest_type.capitalize %></span>
+              </li>
+              <li>
+                  <i class="fa fa-user"></i> 
+                  <span class="font-lato">Assigned by <%= @quest.assigner.char_name %> to <%= @quest.assignee.char_name %></span>
+              </li>
+              <% if @quest.notes %>
+              <hr>
+              <li>
+                <span class="font-lato">
+                <p class="text-center size-18"><strong>Task: </strong><%= @quest.notes %></p>
+                </span>
+              </li>
               <% end %>
-              
-              <% if @quest.status_code == 1 %>
-              <% if @show_activities %>
-                <% if @quest.assignee_id == current_user.id %>
-                  <% if current_user.access_token %>
-                  <div class="container">
-                    <h3>Link Recent Runkeeper Activities to <%= @quest.name %></h3>
-                    <% @show_activities.each do |activity| %>
-                      <div class="container">
-                        <%= form_tag  "/activities/#{activity.id}", method: :patch do %>
-                          <%= hidden_field_tag :quest_id, @quest.id %>
-                          <%= submit_tag "Run on #{activity.friendly_start_time}", class: "btn btn-primary" %>
-                        <% end %>
-                        <p><strong><%= activity.distance_in_miles %></strong> miles</p>
-                        <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
-                        <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
-                        <p><strong><%= activity.calories %></strong> calories burned</p>
-                      </div>
-                    <% end %>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% end %>
-              <% end %>
-              </div>
-              
-              <% if @quest.assignee_id == current_user.id %>
-                <% if @quest.status_code == 0 %>
-                <div class="container">
-                <div class="row col-md-4">
-                  <div class="form-group">
-                  <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
-                    <div class="col-md-1">
-                      <%= radio_button_tag :choice, 1 %>
-                    </div>
-                    <div class="col-md-2">
-                      <%= label_tag :choice_accept, "Accept" %>
-                    </div>
-                    <div class="col-md-1">
-                      <%= radio_button_tag :choice, 2 %>
-                    </div>
-                    <div class="col-md-2">
-                      <%= label_tag :choice_decline, "Decline" %>
-                    </div>
-                    <div class="col-md-2">
-                      <%= submit_tag "Submit", class: "btn btn-primary" %>
-                    </div>
-                  <% end %>
-                  </div>
-                </div>
-                </div>
-                <% end %>
-              <% end %>
+            </ul>
+            
 
-              <% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
-              <div class="container">
-              <div class="row col-md-4">
-                <div class="form-group">
-                  <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
-                    <div class="col-md-1">
-                      <%= check_box_tag :choice, 3 %>
-                    </div>
-                    <div class="col-md-2">
-                      <%= submit_tag "Cancel Quest", class: "btn btn-danger" %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-              </div>
-              <% end %>
-              
-
-              <% if @quest.status_code == 1 && current_user.id == @quest.assigner_id %>
-              <div class="container">
-              <div class="row col-md-4">
-                <div class="form-group">
+            <% if @quest.status_code == 1 && current_user.id == @quest.assigner_id %>
+              <div class="row col-md-12">
                   <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
                     <div class="col-md-1">
                       <%= radio_button_tag :choice, 4 %>
@@ -190,23 +98,116 @@
                     <div class="col-md-3">
                       <%= label_tag :choice_cancel, "Cancel Quest" %>
                     </div>
-                    <div class="col-md-3">
-                      <%= submit_tag "Submit", class: "btn btn-primary" %>
+                    <div class="col-md-2">
+                      <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
                     </div>
                   <% end %>
+              </div>
+            <% end %>
+
+              <% if @quest.status_code == 1 && current_user.id == @quest.assignee_id %>
+                <div class="row col-md-12">
+                    <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
+                      <div class="col-md-1">
+                        <%= check_box_tag :choice, 3 %>
+                      </div>
+                      <div class="col-md-1">
+                        <%= submit_tag "Cancel Quest", class: "btn btn-danger btn-sm" %>
+                      </div>
+                    <% end %>
                 </div>
-              </div>
-              </div>
               <% end %>
 
-              <br>
+              <% if @quest.assignee_id == current_user.id %>
+                <% if @quest.status_code == 0 %>
+                <div class="col-md-3"></div>
+                <div class="row col-md-6">
+                  <%= form_tag "/quests/#{@quest.id}", method: :patch do %>
+                    <div class="col-md-1">
+                      <%= radio_button_tag :choice, 1 %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= label_tag :choice_accept, "Accept" %>
+                    </div>
+                    <div class="col-md-1">
+                      <%= radio_button_tag :choice, 2 %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= label_tag :choice_decline, "Decline" %>
+                    </div>
+                    <div class="col-md-2">
+                      <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
+                    </div>
+                  <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+
+              </div>
+
+              <% if @quest.status_code == 1 %>
+              <% if @show_activities %>
+                <% if @quest.assignee_id == current_user.id %>
+                  <% if current_user.access_token %>
+                  <hr>
+                  <div class="col-md-12">
+                    <h3 class="text-center">LINK RUNKEEPER ACTIVITIES</h3>
+                    <% @show_activities.each do |activity| %>
+                      <div class="blog-post-item well col-md-6 text-center">
+                        <p class="size-14"><strong><%= activity.friendly_start_time %></strong></p>
+                        <hr>
+                        <p class="size-10"><strong><%= activity.distance_in_miles %></strong> miles</p>
+                        <p class="size-10">Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
+                        <p class="size-10">Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
+                        <p class="size-10"><strong><%= activity.calories %></strong> calories burned</p>
+                        <hr>
+                        <%= form_tag  "/activities/#{activity.id}", method: :patch do %>
+                          <%= hidden_field_tag :quest_id, @quest.id %>
+                          <%= submit_tag "Link to Quest", class: "btn btn-primary" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <% end %>
+
+            </div>
+            
+
+            
+            
+
+              <% if @quest.activities.length != 0 %>
+              <div class="col-md-4 blog-post-item well">
+                <div class="">
+                <h3 class="text-center no margin">Linked Quest Activities</h3>
+                <% @quest_activities.each do |activity| %>
+                <div class="col-md-12 text-center">
+                  <p class="size-18"><a href="/activities/<%= activity.id %>"><strong><%= activity.friendly_start_time %></strong></a></p>
+                  <p><strong><%= activity.distance_in_miles %></strong> miles</p>
+                  <p>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></p>  
+                  <p>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</p>
+                  <p><strong><%= activity.calories %></strong> calories burned</p> 
+                  <hr>               
+                </div>
+                <% end %>
+                </div>
+              <% end %>
+              
+            </div>
+            
+              
+              
 
               
               </div>
 
             </div>
             <!-- /POST ITEM -->
-          
+          </div>
+          </div>
         </div>
           <!-- /PAGINATION -->
       </section>

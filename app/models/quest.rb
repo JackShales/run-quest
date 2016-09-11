@@ -47,4 +47,10 @@ class Quest < ApplicationRecord
       "fa-flask"
     end
   end
+
+  def friendly_deadline
+    if deadline
+      deadline.strftime("%m/%d/%Y")
+    end
+  end
 end

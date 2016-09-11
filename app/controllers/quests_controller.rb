@@ -36,7 +36,9 @@ class QuestsController < ApplicationController
   def show
     @quest = Quest.find_by(id: params[:id])
     unassigned_activities = current_user.activities.where(quest_id: nil)
-    @show_activities = unassigned_activities.select { |activity| activity.start_time > (@quest.deadline - 1.month) }
+    if @quest.deadline
+      @show_activities = unassigned_activities.select { |activity| activity.start_time > (@quest.deadline - 1.month) }
+    end
     @quest_activities = @quest.assignee.activities.where(quest_id: @quest.id)
     @assigner = User.find_by(id: @quest.assigner_id)
     @assignee = User.find_by(id: @quest.assignee_id)
