@@ -1,9 +1,13 @@
+<div data-spy="scroll" data-target=".page-header" data-offset="100">
 <section class="page-header page-header-xs">
         <div class="container">
 
           <h1>FRIENDS</h1>
 
           <ol class="breadcrumb">
+            <li><a href="#section1">My Friends</a></li>
+            <li><a href="#section2">Pending</a></li>
+            <li><a href="#section3">Requests</a></li>
             <li><a href="/users">Find New Friends</a></li>
           </ol><!-- /breadcrumbs -->
 
@@ -13,7 +17,7 @@
 
       <!-- -->
       <% if @accepted_friends.length != 0 %>
-        <section>
+        <section id="section1">
           <div class="container">
             <% @accepted_friends.each_slice(4) do |four_friends| %>
               <div class="row">
@@ -55,7 +59,7 @@
       <br>
 
       <% if @pending_friends_sent.length != 0 %>
-        <section>
+        <section id="section2">
           <div class="container">
           <h2>Friend requests sent</h2>
             <% @pending_friends_sent.each_slice(4) do |four_friends| %>
@@ -96,7 +100,7 @@
       <% end %>
 
       <% if @pending_friends_received.length != 0 %>
-        <section>
+        <section id="section3">
           <div class="container">
           <h2>Friend requests received</h2>
             <% @pending_friends_received.each_slice(4) do |four_friends| %>
@@ -142,6 +146,7 @@
           </div>
         </section>
       <% end %>
+     </div> 
       <!-- / -->
 
 
