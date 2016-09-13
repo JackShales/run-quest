@@ -31,12 +31,12 @@
             <!-- /completed -->
 
             <!-- SIDE NAV -->
-            <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-              <li class="list-group-item"><a href="#"><i class="fa fa-arrow-circle-o-up"></i> LEVEL: <%= current_user.level %> </a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-star-o"></i> EXPERIENCE: <%= current_user.experience %></a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-road"></i> ENDURANCE: <%= current_user.endurance %></a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-bolt"></i> SPEED: <%= current_user.speed %> </a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-flask"></i> MENTAL: <%= current_user.mental %></a></li>
+            <ul class="side-nav list-group margin-bottom-30" id="sidebar-nav">
+              <li class="list-group-item size-20"><i class="fa fa-arrow-circle-o-up"></i> <strong>LEVEL</strong>: <%= current_user.level %> </li>
+              <li class="list-group-item size-20"><i class="fa fa-star-o"></i> <strong>EXPERIENCE</strong>: <%= current_user.experience %></li>
+              <li class="list-group-item size-20"><i class="fa fa-road"></i> <strong>ENDURANCE</strong>: <%= current_user.endurance %></li>
+              <li class="list-group-item size-20"><i class="fa fa-bolt"></i> <strong>SPEED</strong>: <%= current_user.speed %> </li>
+              <li class="list-group-item size-20"><i class="fa fa-flask"></i> <strong>MENTAL</strong>: <%= current_user.mental %></li>
             </ul>
             <!-- /SIDE NAV -->
 
@@ -77,12 +77,17 @@
               </div>
               <!-- /info -->
             </div>
-            <img class="image-bw width-100" src="/assets/images/runkeeper.png">
-            <% if current_user.access_token %>
-            <%= link_to "Sync with Runkeeper", "/activities", method: :post %>
-            <% else %>
-            <a href="<%= @auth %>">Connect to RunKeeper</a>
-            <% end %>
+            <div class="row text-center">
+              <img class="image-bw width-150 text-center" src="/assets/images/runkeeper.png">
+            </div>
+            <div class="row text-center">
+              <% if current_user.access_token %>
+                <%= link_to "Sync with Runkeeper", "/activities", class: "size-18", method: :post %>
+              <% else %>
+                <p class="text-center size-18"><a href="<%= @auth %>">Connect to RunKeeper</a></p>
+              <% end %>
+            </div>
+            
           </div>
 
 
@@ -96,16 +101,15 @@
                   <div class="box-icon-title">
                     <br>
                     <br>
-                    <h2 class="size-50"><%= current_user.char_name %>'s Backstory</h2>
-                    <hr>
+                    <h2 class="size-50">About Me</h2>
                   </div>
                 </div>
               </div>
 
               <div class="back">
                 <div class="box2 noradius">
-                  <h4>Bio</h4>
-                  <hr />
+                  <h4>Backstory</h4>
+                  <hr>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>
                 </div>
               </div>
@@ -131,6 +135,7 @@
                           <h4 class="size-13 nomargin noborder nopadding"><a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h4>
                           <span class="size-11 text-muted"><strong>Distance:</strong> <%= activity.distance_in_miles %> miles <strong> Pace: </strong> (m:s) <%= activity.avg_pace %>/mile</span>
                         </div><!-- /post item -->
+                        <hr>
                       <% end %>
 
                     </div>
@@ -153,6 +158,7 @@
                           <h4 class="size-14 nomargin noborder nopadding bold"><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></h4>
                           <span class="size-12 text-muted">Lv. <%= friend.level %> Hero</span>
                         </div><!-- /squared item -->
+                        <hr>
                       <% end %>
                     </div>
                   </div>                  
@@ -167,7 +173,7 @@
                 <div class="col-md-6 col-sm-6">
 
                   <div class="box-inner">
-                    <h3>
+                    <h3 class="">
                       <a class="pull-right size-11 text-warning" href="/quests">VIEW ALL</a>
                       QUEST INBOX
                     </h3>
@@ -176,7 +182,7 @@
                       <div class="clearfix margin-bottom-20"><!-- discussion item -->
                         <!-- <img class="thumbnail pull-left" src="/assets/images/demo/people/300x300/3-min.jpg" width="60" height="60" alt="" /> -->
                         <h4 class="size-15 nomargin noborder nopadding bold"><a href="quests/<%= quest.id %>"><%= quest.name %></a></h4>
-                        <span class="size-13 text-muted">
+                        <span class="size-13 text-muted nomargin">
                           <%= form_tag "/quests/#{quest.id}", method: :patch do %>
                             <div class="col-md-1">
                               <%= radio_button_tag :choice, 1 %>
@@ -194,7 +200,8 @@
                               <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
                             </div>
                           <% end %> 
-                      </div><!-- /discussion item -->
+                      </div>
+                      <hr><!-- /discussion item -->
                       <% end %>
                     </div>
                   </div>
@@ -212,26 +219,38 @@
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @pending_friends_received.each do |friend| %>
                         <div class="clearfix margin-bottom-20"><!-- discussion item -->
-                          <img class="thumbnail pull-left" src="<%= friend.avatar %>" width="60" height="60" alt="" />
-                          <h4 class="size-15 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
-                          <div>
+                          <div class="row col-md-12">
+  
+                          <div class="col-md-2 thumbnail text-center">
+                            <img class="" src="<%= friend.avatar %>" width="60" height="60" alt="" />
+                            <h4 class="size-15 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
+                          </div>
+                          <div class="col-md-10">
                             <span class="size-13 text-muted">
                               <%= form_tag "/friends/#{friend.id}", method: :patch do %>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                   <%= radio_button_tag :choice, 1 %>
+                                </div>
+                                <div class="col-md-3">
                                   <%= label_tag :choice_accept, "Accept" %>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                   <%= radio_button_tag :choice, 2 %>
+                                </div>
+                                <div class="col-md-3">
                                   <%= label_tag :choice_decline, "Decline" %>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                   <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
                                 </div>
                               <% end %> 
                             </span>
                           </div>
+                          </div>
+                          </div>
+                          <hr>
                         </div><!-- /discussion item -->
+
                       <% end %>
                     </div>
 
@@ -242,7 +261,7 @@
               </div>
 
 
-            </div>
+            
 
              <div class="row margin-top-30">
 

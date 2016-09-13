@@ -129,10 +129,18 @@
                                 <p>Mental: <%= user.mental %></p>
                             <hr />
                             <%= form_tag "/friends/#{user.id}", method: :patch do %>
-                              <%= radio_button_tag :choice, 1 %>
-                              <%= label_tag :choice_accept, "Accept" %>
-                              <%= radio_button_tag :choice, 2 %>
-                              <%= label_tag :choice_decline, "Decline" %>
+                              <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                  <%= radio_button_tag :choice, 1 %>
+                                  <%= label_tag :choice_accept, "Accept" %>
+                                </div>
+                                <div class="col-md-4">
+                                  <%= radio_button_tag :choice, 2 %>
+                                  <%= label_tag :choice_decline, "Decline" %>
+                                </div>
+                                <div class="col-md-2"></div>
+                              </div>
                               <%= submit_tag "Submit", class: "btn btn-primary" %>
                             <% end %>
                           </div>

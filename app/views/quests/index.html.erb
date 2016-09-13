@@ -56,16 +56,12 @@
             <h1 class="text-center"><a href="/quests/<%= quest.id %>"><%= quest.name %></a></h1>
             <ul class="blog-post-info list-inline text-center">
               <li>
-                <a href="#">
                   <i class="fa fa-clock-o"></i> 
                   <span class="font-lato">DEADLINE: <%= quest.friendly_deadline || "N/A" %></span>
-                </a>
               </li>
               <li>
-                <a href="#">
                   <i class="fa fa-check"></i> 
                   <span class="font-lato"><%= quest.status.capitalize %></span>
-                </a>
               </li>
               <li>
                 <% if quest.quest_type.capitalize == "Endurance" %>
@@ -75,15 +71,11 @@
                 <% else %>
                   <i class="fa fa-flask"></i>
                 <% end %> 
-                <a class="category" href="#">
                   <span class="font-lato"><%= quest.quest_type.capitalize %></span>
-                </a>
               </li>
               <li>
-                <a href="#">
                   <i class="fa fa-user"></i> 
                   <span class="font-lato">Assigned by <%= quest.assigner.char_name %></span>
-                </a>
               </li>
             </ul> 
             <% if quest.notes %>
