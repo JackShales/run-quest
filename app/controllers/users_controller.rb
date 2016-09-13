@@ -9,6 +9,8 @@ class UsersController < ApplicationController
       @completed_quests_num = Quest.where(assignee_id: current_user.id, status_code: 4).length
       @total_activities_num = current_user.activities.length
       @quest_inbox = Quest.where(assignee_id: current_user.id, status_code: 0)
+      @active_quests = Quest.where(assignee_id: current_user.id, status_code: 1)
+      @active_assigned = Quest.where(assigner_id: current_user.id, status_code: 1)
 
       pending_friendships_1 = current_user.friendships.where(status_code: 0)
       pending_friendships_2 = current_user.inverse_friendships.where(status_code: 0)

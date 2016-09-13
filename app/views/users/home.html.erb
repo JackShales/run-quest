@@ -123,7 +123,7 @@
                   <div class="box-inner">
                     <h3>
                       <a class="pull-right size-11 text-warning" href="/activities">VIEW ALL</a>
-                      ACTIVITIES
+                      MY ACTIVITIES
                     </h3>
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @activities.each do |activity| %>
@@ -233,6 +233,89 @@
                           </div>
                         </div><!-- /discussion item -->
                       <% end %>
+                    </div>
+
+
+                </div>
+                <!-- /NOTIFICATIONS -->
+
+              </div>
+
+
+            </div>
+
+             <div class="row margin-top-30">
+
+                <!-- DISCUSSIONS -->
+                <div class="col-md-6 col-sm-6">
+
+                  <div class="box-inner">
+                    <h3>
+                      <a class="pull-right size-11 text-warning" href="/inbox/active">VIEW ALL</a>
+                      MY ACTIVE QUESTS
+                    </h3>
+                    <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
+                      <% @active_quests.each do |quest| %>
+                      <div class="clearfix margin-bottom-20"><!-- discussion item -->
+                        <h4 class="size-15 nomargin noborder nopadding bold"><a href="quests/<%= quest.id %>"><%= quest.name %></a></h4>
+                        <span class="size-13 text-muted nomargin nopadding noborder">
+                          <p class="nomargin nopadding noborder"><%= quest.notes %></p>
+                          <p>DEADLINE: <%= quest.friendly_deadline %></p>  
+                        </span>
+                      </div><!-- /discussion item -->
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <!-- /DISCUSSIONS -->
+
+                <!-- NOTIFICATIONS -->
+                <div class="col-md-6 col-sm-6">
+
+                  <div class="box-inner">
+                    <h3>
+                      <a class="pull-right size-11 text-warning" href="/outbox/active">VIEW ALL</a>
+                      MY ASSIGNED QUESTS
+                    </h3>
+                    <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
+                      <% @active_assigned.each do |quest| %>
+                        <div class="clearfix margin-bottom-20"><!-- discussion item -->
+                          <h4 class="size-15 nomargin noborder nopadding bold"><a href="/quests/<%= quest.id %>"><%= quest.name %></a></h4>
+                          <div>
+                            <span class="size-13 text-muted">
+                              <p><em>Assigned to <%= quest.assignee.char_name %></em></p>
+                              <p>QUEST ACTIVITIES</p>
+                              <% quest.activities.each do |activity| %>
+                                <p class="nomargin nopadding noborder"><strong><%= activity.friendly_start_time %></strong></p>
+                                <ul>
+                                  <li><strong><%= activity.distance_in_miles %></strong> miles</li>
+                                  <li>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></li>  
+                                  <li>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</li>
+                                  <li><strong><%= activity.calories %></strong> calories burned</li>
+                                </ul>
+                              <% end %>
+                              <%= form_tag "/quests/#{quest.id}", method: :patch do %>
+                              <div class="col-md-1">
+                                <%= radio_button_tag :choice, 4 %>
+                              </div>
+                              <div class="col-md-3">
+                                <%= label_tag :choice_complete, "Quest Completed" %>
+                              </div>
+                              <div class="col-md-1">
+                                <%= radio_button_tag :choice, 3 %>
+                              </div>
+                              <div class="col-md-3">
+                                <%= label_tag :choice_cancel, "Cancel Quest" %>
+                              </div>
+                              <div class="col-md-2">
+                                <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
+                              </div>
+                            <% end %>
+                            </span>
+                          </div>
+                        </div><!-- /discussion item -->
+                      <% end %>
+                      <hr>
                     </div>
 
 

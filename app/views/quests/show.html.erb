@@ -146,12 +146,11 @@
               </div>
 
               <% if @quest.status_code == 1 %>
-              <% if @show_activities %>
+              <% if @show_activities.length != 0 %>
                 <% if @quest.assignee_id == current_user.id %>
-                  <% if current_user.access_token %>
                   <hr>
                   <div class="col-md-12">
-                    <h3 class="text-center">LINK RUNKEEPER ACTIVITIES</h3>
+                    <h3 class="text-center">LINK ACTIVITIES</h3>
                     <% @show_activities.each do |activity| %>
                       <div class="blog-post-item well col-md-6 text-center">
                         <p class="size-14"><strong><%= activity.friendly_start_time %></strong></p>
@@ -168,7 +167,6 @@
                       </div>
                     <% end %>
                     </div>
-                  <% end %>
                 <% end %>
               <% end %>
               <% end %>

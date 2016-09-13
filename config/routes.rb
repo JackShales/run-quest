@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   get '/inbox/pending' => 'quests#in_pending'
   get '/inbox/active' => 'quests#in_active'
-  get 'inbox/complete' => 'quests#in_complete'
+  get '/inbox/complete' => 'quests#in_complete'
 
   get '/outbox/pending' => 'quests#out_pending'
   get '/outbox/active' => 'quests#out_active'
-  get 'outbox/complete' => 'quests#out_complete'
+  get '/outbox/complete' => 'quests#out_complete'
 
   get '/quests' => 'quests#index'
   # get '/quests/new' => 'quests#new'
