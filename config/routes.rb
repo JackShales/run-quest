@@ -46,8 +46,6 @@ Rails.application.routes.draw do
 
   # Datapoints
 
-  post '/datapoints' => 'datapoints#create'
-
   # API routes
   namespace :api do
     namespace :v1 do
@@ -56,6 +54,9 @@ Rails.application.routes.draw do
 
       get '/quests' => 'quests#index'
       get '/quests/:id/' => 'quests#show'
+
+      get '/users' => 'users#index'
+      get '/users/:id' => 'users#show'
     end
   end
 end

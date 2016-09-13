@@ -85,4 +85,99 @@ class User < ApplicationRecord
     exp_to_next_level = exp_bar - experience
     exp_to_next_level
   end
+
+  def achievements
+    user_achievements = []
+
+    if endurance > 1
+      achievement = {name: "Endurance Apprentice", detail: "Completed 1 endurance quest", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if endurance > 5
+      achievement = {name: "Endurance Practitioner", detail: "Completed 5 endurance quests", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if endurance > 10
+      achievement = {name: "Endurance Adept", detail: "Completed 10 endurance quests", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if endurance > 20
+      achievement = {name: "Endurance Pro", detail: "Completed 20 endurance quests", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if endurance > 50
+      achievement = {name: "Endurance Journeyman", detail: "Completed 50 endurance quests", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if endurance > 100
+      achievement = {name: "Endurance Master", detail: "Completed 100 endurance quests", icon: "fa-road"}
+      user_achievements << achievement
+    end
+
+    if mental > 1
+      achievement = {name: "Mental Apprentice", detail: "Completed 1 mental quest", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if mental > 5
+      achievement = {name: "Mental Practitioner", detail: "Completed 5 mental quests", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if mental > 10
+      achievement = {name: "Mental Adept", detail: "Completed 10 mental quests", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if mental > 20
+      achievement = {name: "Mental Pro", detail: "Completed 20 mental quests", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if mental > 50
+      achievement = {name: "Mental Journeyman", detail: "Completed 50 mental quests", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if mental > 100
+      achievement = {name: "Mental Master", detail: "Completed 100 mental quests", icon: "fa-flask"}
+      user_achievements << achievement
+    end
+
+    if speed > 1
+      achievement = {name: "Speed Apprentice", detail: "Completed 1 speed quest", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+
+    if speed > 5
+      achievement = {name: "Speed Practitioner", detail: "Completed 5 speed quests", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+
+    if speed > 10
+      achievement = {name: "Speed Adept", detail: "Completed 10 speed quests", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+
+    if speed > 20
+      achievement = {name: "Speed Pro", detail: "Completed 20 speed quests", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+
+    if speed > 50
+      achievement = {name: "Speed Journeyman", detail: "Completed 50 speed quests", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+
+    if speed > 100
+      achievement = {name: "Speed Master", detail: "Completed 100 speed quests", icon: "fa-bolt"}
+      user_achievements << achievement
+    end
+    user_achievements
+  end
 end

@@ -55,6 +55,10 @@ saladin.avatar = "http://t01.deviantart.net/7AlbaXqgyfKjNJ2qHcqgz0b1wK8=/fit-in/
 saladin.save
 hiawatha.avatar = "https://janebaileybain.files.wordpress.com/2012/09/hiawathabrave.jpg"
 hiawatha.save
+
+
+
+
 # users.each do |user|
 #   rand(1..3).times do
 #     quest = Quest.create(
