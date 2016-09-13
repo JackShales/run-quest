@@ -53,7 +53,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all.order(:char_name)
+    @users = []
+    users = User.all.order(:char_name)
+    users.each do |user|
+      if user.id != current_user.id && !current_user.friend?(user)
+        @users << user
+      end
+    end
     render 'index.html.erb'
   end
 
