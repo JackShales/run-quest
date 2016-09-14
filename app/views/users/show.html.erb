@@ -31,15 +31,15 @@
           <!-- LEFT -->
           <div class="col-lg-3 col-md-3 col-sm-4">
           
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center box-default noborder padding-bottom-10 box-shadow-1">
               <img src="<%= @user.avatar %>" alt="" />
-              <h2 class="size-18 margin-top-10 margin-bottom-0"><%= @user.char_name %></h2>
-              <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">Lv. <%= @user.level %> Hero </h3>
+              <h2 class="size-30 margin-top-10 margin-bottom-0"><%= @user.char_name %></h2>
+              <h3 class="size-20 margin-top-0 margin-bottom-10 text-muted">Lv. <%= @user.level %> Hero </h3>
             </div>
 
             <!-- completed -->
             <div class="margin-bottom-30">
-              <label><%= @user.exp_to_go %> xp to advance</label>
+              <label class="text-center size-14"><%= @user.exp_to_go %> xp to advance</label>
               <div class="progress progress-xxs">
                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= @user.exp_ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @user.exp_ratio %>%; min-width: 2em;"></div>
               </div>
@@ -47,12 +47,12 @@
             <!-- /completed -->
 
             <!-- SIDE NAV -->
-            <ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-              <li class="list-group-item"><a href="#"><i class="fa fa-arrow-circle-o-up"></i> LEVEL: <%= @user.level %> </a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-star-o"></i> EXPERIENCE: <%= @user.experience %></a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-road"></i> ENDURANCE: <%= @user.endurance %></a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-bolt"></i> SPEED: <%= @user.speed %> </a></li>
-              <li class="list-group-item"><a href="#"><i class="fa fa-flask"></i> MENTAL: <%= @user.mental %></a></li>
+            <ul class="side-nav list-group margin-bottom-30" id="sidebar-nav">
+              <li class="list-group-item size-18"><i class="fa fa-arrow-circle-o-up"></i> LEVEL: <%= @user.level %> </li>
+              <li class="list-group-item size-18"><i class="fa fa-star-o"></i> EXPERIENCE: <%= @user.experience %></li>
+              <li class="list-group-item size-18"><i class="fa fa-road"></i> ENDURANCE: <%= @user.endurance %></li>
+              <li class="list-group-item size-18">&nbsp;<i class="fa fa-bolt"></i> SPEED: <%= @user.speed %> </li>
+              <li class="list-group-item size-18"><i class="fa fa-flask"></i> MENTAL: <%= @user.mental %></li>
             </ul>
             <!-- /SIDE NAV -->
 
@@ -92,12 +92,16 @@
               </div>
               <!-- /info -->
             </div>
-            <img class="image-bw width-100" src="/assets/images/runkeeper.png">
-            <% if @user.access_token %>
-            Using Runkeeper
-            <% else %>
-            Runkeeper Inactive
-            <% end %>
+            <div class="row text-center">
+              <img class="image-bw width-150 text-center" src="/assets/images/runkeeper.png">
+            </div>
+            <div class="row text-center">
+              <% if @user.access_token %>
+                Using Runkeeper
+              <% else %>
+                Runkeeper Inactive
+              <% end %>
+            </div>
           </div>
 
 
@@ -111,17 +115,16 @@
                   <div class="box-icon-title">
                     <br>
                     <br>
-                    <h2 class="size-50"><%= @user.char_name %>'s Backstory</h2>
-                    <hr>
+                    <h2 class="size-50">About <%= @user.char_name %></h2>
                   </div>
                 </div>
               </div>
 
               <div class="back">
                 <div class="box2 noradius">
-                  <h4>Bio</h4>
-                  <hr />
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>
+                  <h4>Backstory</h4>
+                  <hr>
+                  <p><%= @user.bio %></p>
                 </div>
               </div>
             </div>
@@ -143,9 +146,10 @@
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @activities.each do |activity| %>
                         <div class="clearfix margin-bottom-10"><!-- post item -->
-                          <h4 class="size-13 nomargin noborder nopadding"><a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h4>
-                          <span class="size-11 text-muted"><strong>Distance:</strong> <%= activity.distance_in_miles %> miles <strong> Pace: </strong> (m:s) <%= activity.avg_pace %>/mile</span>
+                          <h4 class="size-15 nomargin noborder nopadding"><a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h4>
+                          <span class="size-13 text-muted"><strong>Distance:</strong> <%= activity.distance_in_miles %> miles <strong> Pace: </strong> (m:s) <%= activity.avg_pace %>/mile</span>
                         </div><!-- /post item -->
+                        <hr>
                       <% end %>
 
                     </div>
@@ -157,17 +161,24 @@
                 <!-- FRIENDS -->
                 <div class="col-md-6 col-sm-6">
                   <div class="box-inner">
-                    <h3>
-                      
+                    <h3>  
                       FRIENDS
                     </h3>
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @accepted_friends.each do |friend| %>
                         <div class="clearfix margin-bottom-10"><!-- squared item -->
-                          <img class="thumbnail pull-left" src="<%= friend.avatar %>" width="40" height="40" alt="" />
-                          <h4 class="size-14 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
-                          <span class="size-12 text-muted">Lv. <%= friend.level %> Hero</span>
+                          <div class="col-md-12">
+                            <div class="col-md-4">
+                              <img class="thumbnail pull-left text-center box-default box-shadow-1" src="<%= friend.avatar %>" width="100" height="100" alt="" />
+                            </div>
+                            <div class="col-md-8 text-center">
+                            <br>
+                              <h4 class="size-15 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
+                              <span class="size-13 text-muted">Lv. <%= friend.level %> Hero</span>
+                            </div>
+                          </div>
                         </div><!-- /squared item -->
+                        <hr>
                       <% end %>
                     </div>
                   </div>                  

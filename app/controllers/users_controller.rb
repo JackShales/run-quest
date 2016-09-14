@@ -100,6 +100,8 @@ class UsersController < ApplicationController
       email: params[:email],
       password: params[:password],
       password_confirmation: params[:password_confirmation],
+      bio: params[:character_bio],
+      avatar: params[:avatar],
       experience: 0,
       speed: 1,
       endurance: 1,

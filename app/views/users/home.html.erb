@@ -15,15 +15,15 @@
           <!-- LEFT -->
           <div class="col-lg-3 col-md-3 col-sm-4">
           
-            <div class="thumbnail text-center">
+            <div class="thumbnail text-center box-default noborder padding-bottom-10 box-shadow-1">
               <img src="<%= current_user.avatar %>" alt="" />
-              <h2 class="size-18 margin-top-10 margin-bottom-0"><%= current_user.char_name %></h2>
-              <h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">Lv. <%= current_user.level %> Hero </h3>
+              <h2 class="size-30 margin-top-10 margin-bottom-0"><%= current_user.char_name %></h2>
+              <h3 class="size-20 margin-top-0 margin-bottom-10 text-muted">Lv. <%= current_user.level %> Hero </h3>
             </div>
 
             <!-- completed -->
             <div class="margin-bottom-30">
-              <label><%= current_user.exp_to_go %> xp to advance</label>
+              <label class="text-center size-14"><%= current_user.exp_to_go %> xp to advance</label>
               <div class="progress progress-xxs">
                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= current_user.exp_ratio %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.exp_ratio %>%; min-width: 2em;"></div>
               </div>
@@ -32,11 +32,11 @@
 
             <!-- SIDE NAV -->
             <ul class="side-nav list-group margin-bottom-30" id="sidebar-nav">
-              <li class="list-group-item size-20"><i class="fa fa-arrow-circle-o-up"></i> <strong>LEVEL</strong>: <%= current_user.level %> </li>
-              <li class="list-group-item size-20"><i class="fa fa-star-o"></i> <strong>EXPERIENCE</strong>: <%= current_user.experience %></li>
-              <li class="list-group-item size-20"><i class="fa fa-road"></i> <strong>ENDURANCE</strong>: <%= current_user.endurance %></li>
-              <li class="list-group-item size-20"><i class="fa fa-bolt"></i> <strong>SPEED</strong>: <%= current_user.speed %> </li>
-              <li class="list-group-item size-20"><i class="fa fa-flask"></i> <strong>MENTAL</strong>: <%= current_user.mental %></li>
+              <li class="list-group-item size-18"><i class="fa fa-arrow-circle-o-up"></i> <strong>LEVEL</strong>: <%= current_user.level %> </li>
+              <li class="list-group-item size-18"><i class="fa fa-star-o"></i> <strong>EXPERIENCE</strong>: <%= current_user.experience %></li>
+              <li class="list-group-item size-18"><i class="fa fa-road"></i> <strong>ENDURANCE</strong>: <%= current_user.endurance %></li>
+              <li class="list-group-item size-18">&nbsp;<i class="fa fa-bolt"></i> <strong>SPEED</strong>: <%= current_user.speed %> </li>
+              <li class="list-group-item size-18"><i class="fa fa-flask"></i> <strong>MENTAL</strong>: <%= current_user.mental %></li>
             </ul>
             <!-- /SIDE NAV -->
 
@@ -70,6 +70,7 @@
                           <h4 class="size-13 nomargin noborder nopadding"><i class="fa <%= achievement[:icon] %>"></i> <%= achievement[:name] %></h4>
                           <span class="size-11 text-muted"> <%= achievement[:detail] %></span>
                         </div><!-- /post item -->
+                        <hr>
                       <% end %>
                     </div>
                   </div>
@@ -110,7 +111,7 @@
                 <div class="box2 noradius">
                   <h4>Backstory</h4>
                   <hr>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>
+                  <p><%= current_user.bio %></p>
                 </div>
               </div>
             </div>
@@ -132,8 +133,8 @@
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @activities.each do |activity| %>
                         <div class="clearfix margin-bottom-10"><!-- post item -->
-                          <h4 class="size-13 nomargin noborder nopadding"><a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h4>
-                          <span class="size-11 text-muted"><strong>Distance:</strong> <%= activity.distance_in_miles %> miles <strong> Pace: </strong> (m:s) <%= activity.avg_pace %>/mile</span>
+                          <h4 class="size-15 nomargin noborder nopadding"><a href="/activities/<%= activity.id %>"><%= activity.friendly_start_time %></a></h4>
+                          <span class="size-13 text-muted"><strong>Distance:</strong> <%= activity.distance_in_miles %> miles <strong> Pace: </strong> (m:s) <%= activity.avg_pace %>/mile</span>
                         </div><!-- /post item -->
                         <hr>
                       <% end %>
@@ -153,10 +154,17 @@
                     </h3>
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @accepted_friends.each do |friend| %>
-                        <div class="clearfix margin-bottom-10"><!-- squared item -->
-                          <img class="thumbnail pull-left" src="<%= friend.avatar %>" width="40" height="40" alt="" />
-                          <h4 class="size-14 nomargin noborder nopadding bold"><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></h4>
-                          <span class="size-12 text-muted">Lv. <%= friend.level %> Hero</span>
+                        <div class="clearfix margin-bottom-10">
+                          <div class="col-md-12"><!-- squared item -->
+                          <div class="col-md-4">
+                            <img class="thumbnail pull-left text-center box-default box-shadow-1" src="<%= friend.avatar %>" width="100" height="100" alt="" /> 
+                          </div>
+                          <div class="col-md-8 text-center">
+                            <br>
+                            <h4 class="size-15 nomargin noborder nopadding bold"><a href="/users/<%= friend.id %>"><%= friend.char_name %></a></h4>
+                            <span class="size-13 text-muted">Lv. <%= friend.level %> Hero</span>
+                          </div>
+                          </div>
                         </div><!-- /squared item -->
                         <hr>
                       <% end %>
@@ -181,23 +189,22 @@
                       <% @quest_inbox.each do |quest| %>
                       <div class="clearfix margin-bottom-20"><!-- discussion item -->
                         <!-- <img class="thumbnail pull-left" src="/assets/images/demo/people/300x300/3-min.jpg" width="60" height="60" alt="" /> -->
-                        <h4 class="size-15 nomargin noborder nopadding bold"><a href="quests/<%= quest.id %>"><%= quest.name %></a></h4>
+                        <h4 class="size-15 nomargin noborder nopadding bold"><i class="fa <%= quest.icon %>"></i><a href="quests/<%= quest.id %>"> <%= quest.name %></a></h4>
                         <span class="size-13 text-muted nomargin">
+                          <p class="margin-bottom-10"><%= quest.notes %></p>
                           <%= form_tag "/quests/#{quest.id}", method: :patch do %>
-                            <div class="col-md-1">
-                              <%= radio_button_tag :choice, 1 %>
+                            <div class="button-group" data-toggle="buttons">
+                              <div class="col-md-4 btn btn-default noborder-right">
+                                <%= label_tag :choice_accept, "Accept" %>
+                                <%= radio_button_tag :choice, 1 %>
+                              </div>
+                              <div class="col-md-4 btn btn-default">
+                                <%= radio_button_tag :choice, 2 %>
+                                <%= label_tag :choice_decline, "Decline" %>
+                              </div>
                             </div>
-                            <div class="col-md-2">
-                              <%= label_tag :choice_accept, "Accept" %>
-                            </div>
-                            <div class="col-md-1">
-                              <%= radio_button_tag :choice, 2 %>
-                            </div>
-                            <div class="col-md-2">
-                              <%= label_tag :choice_decline, "Decline" %>
-                            </div>
-                            <div class="col-md-2">
-                              <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
+                            <div class="col-md-4">
+                              <%= submit_tag "Submit", class: "btn btn-default" %>
                             </div>
                           <% end %> 
                       </div>
@@ -221,27 +228,27 @@
                         <div class="clearfix margin-bottom-20"><!-- discussion item -->
                           <div class="row col-md-12">
   
-                          <div class="col-md-2 thumbnail text-center">
+                          <div class="col-md-3 thumbnail text-center box-default box-shadow-1">
                             <img class="" src="<%= friend.avatar %>" width="60" height="60" alt="" />
                             <h4 class="size-15 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
+                            <h5 class="size-11 nomargin noborder nopadding text-muted">Lv. <%= friend.level %> Hero</h5>
                           </div>
-                          <div class="col-md-10">
+                          <div class="col-md-9">
                             <span class="size-13 text-muted">
+
                               <%= form_tag "/friends/#{friend.id}", method: :patch do %>
-                                <div class="col-md-1">
+                              <div class="button-group" data-toggle="buttons">
+                                <div class="col-md-4 btn btn-default noborder-right">
+                                  <%= label_tag :choice_accept, "Accept" %>
                                   <%= radio_button_tag :choice, 1 %>
                                 </div>
-                                <div class="col-md-3">
-                                  <%= label_tag :choice_accept, "Accept" %>
-                                </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4 btn btn-default">
                                   <%= radio_button_tag :choice, 2 %>
-                                </div>
-                                <div class="col-md-3">
                                   <%= label_tag :choice_decline, "Decline" %>
                                 </div>
-                                <div class="col-md-2">
-                                  <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
+                              </div>
+                                <div class="col-md-4">
+                                  <%= submit_tag "Submit", class: "btn btn-default" %>
                                 </div>
                               <% end %> 
                             </span>
@@ -276,12 +283,13 @@
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @active_quests.each do |quest| %>
                       <div class="clearfix margin-bottom-20"><!-- discussion item -->
-                        <h4 class="size-15 nomargin noborder nopadding bold"><a href="quests/<%= quest.id %>"><%= quest.name %></a></h4>
+                        <h4 class="size-15 nomargin noborder nopadding bold"><i class="fa <%= quest.icon %>"></i><a href="quests/<%= quest.id %>"> <%= quest.name %></a></h4>
                         <span class="size-13 text-muted nomargin nopadding noborder">
                           <p class="nomargin nopadding noborder"><%= quest.notes %></p>
-                          <p>DEADLINE: <%= quest.friendly_deadline %></p>  
+                          <p class="nomargin nopadding noborder"><strong>DEADLINE</strong>: <%= quest.friendly_deadline %></p>  
                         </span>
                       </div><!-- /discussion item -->
+                      <hr>
                       <% end %>
                     </div>
                   </div>
@@ -299,42 +307,41 @@
                     <div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
                       <% @active_assigned.each do |quest| %>
                         <div class="clearfix margin-bottom-20"><!-- discussion item -->
-                          <h4 class="size-15 nomargin noborder nopadding bold"><a href="/quests/<%= quest.id %>"><%= quest.name %></a></h4>
+                          <h4 class="size-15 nomargin noborder nopadding bold"><i class="fa <%= quest.icon %>"></i><a href="/quests/<%= quest.id %>"> <%= quest.name %></a></h4>
                           <div>
                             <span class="size-13 text-muted">
                               <p><em>Assigned to <a href="/users/<%= quest.assignee_id %>"><%= quest.assignee.char_name %></a></em></p>
                               <p>LINKED QUEST ACTIVITIES</p>
                               <% quest.activities.each do |activity| %>
-                                <p class="nomargin nopadding noborder"><strong><%= activity.friendly_start_time %></strong></p>
-                                <ul>
-                                  <li><strong><%= activity.distance_in_miles %></strong> miles</li>
-                                  <li>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></li>  
-                                  <li>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</li>
-                                  <li><strong><%= activity.calories %></strong> calories burned</li>
+                                <p class="nomargin nopadding noborder text-center"><strong><%= activity.friendly_start_time %></strong></p>
+                                <ul class="list-group side-nav">
+                                  <li class="list-group-item"><i class="fa fa-arrows-h"></i><strong><%= activity.distance_in_miles %></strong> miles</li>
+                                  <li class="list-group-item"><i class="fa fa-clock-o"></i>Duration (h:m:s) of <strong><%= activity.friendly_duration %></strong></li>  
+                                  <li class="list-group-item"><i class="fa fa-tachometer"></i>Average pace (m:s) of <strong><%= activity.avg_pace %></strong> per mile</li>
+                                  <li class="list-group-item"><i class="fa fa-fire"></i><strong><%= activity.calories %></strong> calories burned</li>
                                 </ul>
                               <% end %>
                               <%= form_tag "/quests/#{quest.id}", method: :patch do %>
-                              <div class="col-md-1">
-                                <%= radio_button_tag :choice, 4 %>
-                              </div>
-                              <div class="col-md-3">
-                                <%= label_tag :choice_complete, "Quest Completed" %>
-                              </div>
-                              <div class="col-md-1">
-                                <%= radio_button_tag :choice, 3 %>
-                              </div>
-                              <div class="col-md-3">
-                                <%= label_tag :choice_cancel, "Cancel Quest" %>
-                              </div>
-                              <div class="col-md-2">
-                                <%= submit_tag "Submit", class: "btn btn-primary btn-sm" %>
-                              </div>
+                              <div class="button-group" data-toggle="buttons">
+                                <div class="col-md-4 btn btn-default noborder-right">
+                                  <%= label_tag :choice_complete, "Confirm" %>
+                                  <%= radio_button_tag :choice, 4 %>
+                                </div>
+                                <div class="col-md-4 btn btn-default">
+                                  <%= label_tag :choice_cancel, "Cancel" %>
+                                  <%= radio_button_tag :choice, 3 %>
+                                </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <%= submit_tag "Submit", class: "btn btn-default" %>
+                                </div>
                             <% end %>
                             </span>
                           </div>
                         </div><!-- /discussion item -->
+                        <hr>
                       <% end %>
-                      <hr>
+                      
                     </div>
 
 

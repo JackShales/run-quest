@@ -46,8 +46,16 @@
 
                   <%= form_tag "/users", method: :post do  %>
                     <div>
-                      <%= label_tag :character_name %>
+                      <%= label_tag :hero_name %>
                       <%= text_field_tag :character_name, @user.char_name, class: "form-control" %>
+                    </div>
+                    <div>
+                      <%= label_tag :hero_backstory %>
+                      <%= text_area_tag :character_bio, @user.bio, class: "form-control" %>
+                    </div>
+                    <div>
+                      <%= label_tag :hero_avatar %>
+                      <%= text_field_tag :avatar, @user.avatar, class: "form-control" %>
                     </div>
                     <div>
                       <%= label_tag :email %>
