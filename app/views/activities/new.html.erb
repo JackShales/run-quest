@@ -14,7 +14,7 @@
   <div class="col-md-4">
     <%= form_tag '/activities/manual', class: "box-light margin-top-20", method: :post do %>
       <div class="box-inner">
-        <h4 class="uppercase">Activity Entry Form</h4>
+        <h4 class="uppercase text-center">Activity Entry Form</h4>
         <div>
           <%= label_tag :start_time %>
           <%= datetime_local_field :activity, :start_time, class: "form-control" %>
@@ -39,7 +39,7 @@
       </div>
     <% end %>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8 box-dark">
     <div id="map" onclick="showDistance();postDataPoints();"></div>
   </div>
 </div>

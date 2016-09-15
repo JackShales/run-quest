@@ -54,10 +54,10 @@ html, body {
 }
 body {
 	color:#666;
+	background-image: url("/assets/images/stucco.png");
 	background-color:#fff;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+	font-family: 'Hammersmith One', sans-serif;
 	-webkit-font-smoothing: antialiased;
-
 	font-size:14px; line-height:1.5;
 	margin:0; padding:0;
 }
@@ -68,7 +68,8 @@ body.has-video-bg section {
 }
 
 body #wrapper {/* used by RTL*/
-	overflow:hidden; 
+	overflow:hidden;
+	background-image: url("hexellence_@2X.png"); 
 	min-height:100%; /*  because short page hide long menus */
 }
 
@@ -239,6 +240,14 @@ small {
 }
 label {
 	display:block;
+}
+
+h1.logo {
+	font-family: 'Rock Salt', cursive;
+	font-size:70px;
+  line-height:96px;
+	color: #FFFFFF;
+	height: 60px !important;
 }
 
 
@@ -841,6 +850,7 @@ section.page-header {
 	margin-bottom: 0 !important;
 	background-color: rgba(0,0,0,0.05);
 	border-bottom: rgba(0,0,0,0.05) 1px solid;
+	font-family: 'Hammersmith One', sans-serif;
 
 	-webkit-transition: all 0s;
 	   -moz-transition: all 0s;
@@ -857,6 +867,7 @@ section.page-header {
 			bottom:-60px;
 			background-image:url('../images/misc/shadow1.png');
 			background-size: 100% 100%;
+			font-family: 'Hammersmith One', sans-serif;
 	}
 	section.page-header.shadow-after-2:before {
 			content:' ';
@@ -866,6 +877,7 @@ section.page-header {
 			bottom:-60px;
 			background-image:url('../images/misc/shadow2.png');
 			background-size: 100% 100%;
+			font-family: 'Hammersmith One', sans-serif;
 	}
 	section.page-header.shadow-after-3:before {
 			content:' ';
@@ -875,21 +887,25 @@ section.page-header {
 			bottom:-60px;
 			background-image:url('../images/misc/shadow3.png');
 			background-size: 100% 100%;
+			font-family: 'Hammersmith One', sans-serif;
 	}
 
 
 	section.dark.page-header {
 		color:#fff;
 		background-color:#151515;
+		font-family: 'Hammersmith One', sans-serif;
 	}
 	section.light.page-header {
 		color:#151515;
 		background-color:transparent;
 		border-top: rgba(0,0,0,0.05) 1px solid;
+		font-family: 'Hammersmith One', sans-serif;
 		
 	}
 	section.page-header.page-header-xs {
 		padding: 20px 0 20px 0;
+		font-family: 'Hammersmith One', sans-serif;
 	}
 	section.page-header.page-header-md {
 		padding: 50px 0 50px 0;
@@ -4131,7 +4147,7 @@ svg {
     border-radius: 3px;
     background: #292929;
     color: white;
-    font-family: sans-serif, Verdana;
+    font-family: 'Hammersmith One', sans-serif;
     font-size: smaller;
     padding: 3px;
 }
@@ -5633,7 +5649,7 @@ section#slider .btn-default {
 		font-size:90px;
 		line-height:90px;
 		margin:0;
-		font-family:Arial,Helvetica,sans-serif;
+		font-family: 'Hammersmith One', sans-serif;
 	}
 	#slider div.slider-featured-text h2 {
 		text-shadow:#333 1px 1px 3px;
@@ -6274,7 +6290,7 @@ section.dark #portfolio h3 {
 h1.blog-post-title,
 .blog-post-item h2 {
 	letter-spacing:0;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+	font-family: 'Hammersmith One', sans-serif;
 	font-size:22px;
 	margin-bottom:10px;
 }
@@ -6476,7 +6492,7 @@ h1.blog-post-title {
 	}
 .comments small {
 	font-size:12px;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+	font-family: 'Hammersmith One', sans-serif;
 	color:#aaa;
 }
 .comments h4 {

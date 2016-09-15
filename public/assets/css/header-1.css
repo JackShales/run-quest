@@ -6,6 +6,7 @@
 	color:#1F262D;
 	font-weight:400;
 	background-color:transparent;
+	font-family: 'Hammersmith One', sans-serif;
 } 
 #topMain.nav-pills>li:hover>a, 
 #topMain.nav-pills>li:focus>a {
@@ -30,7 +31,7 @@
 	top: 50%;
 	right: 10px;
 	margin: -5px 0 0;
-	font-family: FontAwesome;
+	font-family: 'Rock Salt', cursive;
 	font-size: 12px;
 	opacity: .3;
 	line-height: 1em;
@@ -56,6 +57,14 @@
 	display:inline-block;
 }
 
+/*#topNav h1.logo {
+	font-family: 'Rock Salt', cursive;
+	font-size:96px;
+  line-height:96px;
+	color: #FFFFFF;
+	display:inline-block;
+}*/
+
 
 
 @media only screen and (max-width: 1215px) {
@@ -74,6 +83,13 @@
 		line-height:50px !important;
 	}
 	#header #topNav a.logo>img {
+		max-height:60px !important;
+	}
+	#header #topNav h1.logo {
+		font-size:60px !important;
+		line-height:50px !important;
+	}
+	#header #topNav h1.logo>h1 {
 		max-height:60px !important;
 	}
 	#header #topNav #topMain>li>a {
