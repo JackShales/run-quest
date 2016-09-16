@@ -15,7 +15,7 @@
           <!-- LEFT -->
           <div class="col-lg-3 col-md-3 col-sm-4">
           
-            <div class="thumbnail text-center box-default noborder padding-bottom-10 box-shadow-1">
+            <div class="thumbnail text-center box-default noborder padding-bottom-10 box-shadow-1 opacity-8">
               <img src="<%= current_user.avatar %>" alt="" />
               <h2 class="size-30 margin-top-10 margin-bottom-0"><%= current_user.char_name %></h2>
               <h3 class="size-20 margin-top-0 margin-bottom-10 text-muted">Lv. <%= current_user.level %> Hero </h3>
@@ -107,7 +107,7 @@
                 </div>
               </div>
 
-              <div class="back">
+              <div class="back opacity-8">
                 <div class="box2 noradius">
                   <h4>Backstory</h4>
                   <hr>
@@ -181,7 +181,7 @@
                 <div class="col-md-6 col-sm-6">
 
                   <div class="box-inner">
-                    <h3 class="">
+                    <h3>
                       <a class="pull-right size-11 text-warning" href="/quests">VIEW ALL</a>
                       QUEST INBOX
                     </h3>
@@ -230,7 +230,7 @@
   
                           <div class="col-md-3 thumbnail text-center box-default box-shadow-1">
                             <img class="" src="<%= friend.avatar %>" width="60" height="60" alt="" />
-                            <h4 class="size-15 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
+                            <h4 class="size-11 nomargin noborder nopadding bold"><%= friend.char_name %></h4>
                             <h5 class="size-11 nomargin noborder nopadding text-muted">Lv. <%= friend.level %> Hero</h5>
                           </div>
                           <div class="col-md-9">
@@ -256,9 +256,10 @@
                           </div>
                           </div>
                           <hr>
+                          <% end %>
                         </div><!-- /discussion item -->
 
-                      <% end %>
+                      
                     </div>
 
 

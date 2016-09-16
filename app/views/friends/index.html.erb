@@ -24,7 +24,7 @@
                   <% if user.id != current_user.id %>
                     <div class="col-md-3">
                       <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
-                        <div class="front box-shadow-1">
+                        <div class="front box-shadow-1 opacity-8">
                           <div class="box1 box-default">
                             <div class="box-icon-title">
                               <img class="img-responsive" src="<%= user.avatar %>" alt="" />
@@ -35,15 +35,15 @@
                           </div>
                         </div>
         
-                        <div class="back box-shadow-1">
+                        <div class="back box-shadow-1 opacity-8">
                           <div class="box2 box-default">
                             <h4 class="nomargin"><a href="/users/<%= user.id %>"><%= user.char_name %></a></h4>
                             <small>Lv. <%= user.level  %> Hero</small>
-                            <hr />
+                            <hr>
                                 <p>Endurance: <%= user.endurance %></p>
                                 <p>Speed: <%= user.speed %></p>
                                 <p>Mental: <%= user.mental %></p>
-                            <hr />
+                            <hr>
                           </div>
                         </div>
                       </div>
@@ -51,6 +51,7 @@
                   <% end %>
                 <% end %>
               </div>
+              <br>
             <% end %>
           </div>
         </section>
@@ -68,7 +69,7 @@
                   <% if user.id != current_user.id %>
                     <div class="col-md-3">
                       <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
-                        <div class="front box-shadow-1">
+                        <div class="front box-shadow-1 opacity-8">
                           <div class="box1 box-default">
                             <div class="box-icon-title">
                               <img class="img-responsive" src="<%= user.avatar %>" alt="" />
@@ -79,7 +80,7 @@
                           </div>
                         </div>
         
-                        <div class="back box-shadow-1">
+                        <div class="back box-shadow-1 opacity-8">
                           <div class="box2 box-default">
                             <h4 class="nomargin"><%= user.char_name %></h4>
                             <small>Lv. <%= user.level  %> Hero</small>
@@ -110,7 +111,7 @@
                   <% if user.id != current_user.id %>
                     <div class="col-md-3">
                       <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
-                        <div class="front box-shadow-1">
+                        <div class="front box-shadow-1 opacity-8">
                           <div class="box1 box-default">
                             <div class="box-icon-title">
                               <img class="img-responsive" src="<%= user.avatar %>" alt="" />
@@ -121,7 +122,7 @@
                           </div>
                         </div>
         
-                        <div class="back box-shadow-1">
+                        <div class="back box-shadow-1 opacity-8">
                           <div class="box2 box-default">
                             <h4 class="nomargin"><%= user.char_name %></h4>
                             <small>Lv. <%= user.level  %> Hero</small>
@@ -146,17 +147,17 @@
                               <div class="row">
                                 <%= submit_tag "Submit", class: "btn btn-default" %>
                               </div>
-                              </div>
+                              
                             <% end %>
+                            </div>
                           </div>
-                        </div>
+                        
                       </div>
                     </div>
                   <% end %>
                 <% end %>
               </div>
             <% end %>
-          </div>
         </section>
       <% end %>
      </div> 

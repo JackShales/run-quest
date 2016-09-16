@@ -41,7 +41,7 @@
                 <% if user.id != current_user.id %>
                   <div class="col-md-3">
                     <div class="box-flip box-color box-icon box-icon-center box-icon-round box-icon-large text-center">
-                      <div class="front box-shadow-1">
+                      <div class="front box-shadow-1 opacity-8">
                         <div class="box1 box-default">
                           <div class="box-icon-title">
                             <img class="img-responsive" src="<%= user.avatar %>" alt="" />
@@ -52,7 +52,7 @@
                         </div>
                       </div>
       
-                      <div class="back box-shadow-1">
+                      <div class="back box-shadow-1 opacity-8">
                         <div class="box2 box-default">
                           <h4 class="nomargin"><%= user.char_name %></h4>
                           <small>Lv. <%= user.level  %> Hero</small>
