@@ -28,7 +28,12 @@
                 <div class="box1 box-default">
                   <div class="box-icon-title">
                     <div>
-                      <h4 class="size-16"><%= activity.friendly_start_time %></h4>
+                      <h4 class="size-16"><strong><%= activity.friendly_start_time %><strong></h4>
+                      <% if activity.quest %>
+                      <h5 class="size-11"><%= "QUEST: #{activity.quest.name}" %></h5>
+                      <% else %>
+                      <h5 class="size-11">No linked quest</h5>
+                      <% end %>
                     </div>
                     <hr>
                     <div>

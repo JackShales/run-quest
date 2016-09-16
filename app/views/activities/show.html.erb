@@ -12,7 +12,12 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 box-default box-shadow-1 margin-top-20">
-        <h2 class="text-center margin-top-20"><strong><%= @activity.friendly_start_time %></strong></h2>
+        <h2 class="text-center margin-top-20 margin-bottom-10"><strong><%= @activity.friendly_start_time %></strong></h2>
+        <% if @activity.quest %>
+          <h5 class="size-16 text-center"><%= "QUEST: #{@activity.quest.name}" %></h5>
+        <% else %>
+          <h5 class="size-16 text-center">No linked quest</h5>
+        <% end %>
         <ul class="side-nav list-group margin-bottom-60 text-center" id="sidebar-nav">
           <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-clock-o"></i> <strong> DURATION</strong>: (h:m:s) <%= @activity.friendly_duration %> </a></li>
           <li class="list-group-item"><a href="#" class="size-20"><i class="fa fa-fire"></i> <strong> CALORIES BURNED</strong>: <%= @activity.calories %></a></li>
